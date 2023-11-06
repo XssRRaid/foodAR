@@ -73,7 +73,7 @@ app.get('/', frontEndController.getIndex)
 
 app.use(errorController.get404);
 
-app.listen(80);
+// app.listen(80);
 
 // Creating object of key and certificate 
 // for SSL 
