@@ -1,5 +1,6 @@
 // https server 
 const https = require("https"); 
+const port = process.env.PORT || 3001;
 
 const path = require('path')
 const multer = require('multer')
@@ -77,14 +78,20 @@ app.use(errorController.get404);
 
 // Creating object of key and certificate 
 // for SSL 
-const options = { 
-    key: fs.readFileSync("./server.key"), 
-    cert: fs.readFileSync("./server.cert"), 
-  }; 
+// const options = { 
+//     key: fs.readFileSync("./server.key"), 
+//     cert: fs.readFileSync("./server.cert"), 
+//   }; 
     
-  // Creating https server by passing 
-  // options and app object 
-  https.createServer(options, app) 
-  .listen(3000, function (req, res) { 
-    console.log("HTTPS Server started at port 3000"); 
-  });
+//   // Creating https server by passing 
+//   // options and app object 
+//   https.createServer(options, app) 
+//   .listen(3000, function (req, res) { 
+//     console.log("HTTPS Server started at port 3000"); 
+//   });
+
+
+const server = app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+
+server.keepAliveTimeout = 120 * 1000;
+server.headersTimeout = 120 * 1000;
