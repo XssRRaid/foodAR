@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Food Menu AR</title>
+</head>
+<body>
+    <h1>Food Menu AR</h1>
+    <h2>Scan QR code below and point to the menu item image to view the 3D model in AR</h2>
+    <div class="">
+        <img src="/image/qr.png">
+    </div>     
+    <main>
+        <% if (products.length > 0) { %>
+            <div class="grid">
+                <% for (let product of products) { %>
+                    <article class="card product-item">
+                        <header class="card__header">
+                            <h1 class="product__title"><%= product.title %></h1>
+                        </header>
+                        <div class="card__image">
+                            <img src="<%= product.markerImagePath %>"
+                                alt="<%= product.title %>">
+                        </div>                        
+                    </article>
+                <% } %>
+            </div>
+        <% } else { %>
+            <h1>No Products Found!</h1>
+        <% } %>
+    </main>
+</body>
+</html>

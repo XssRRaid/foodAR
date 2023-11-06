@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Food Menu Item</title>
+
+    <!-- include THREEx.ArPatternFile -->
+    <script src='/js/threex-arpatternfile.js'></script>
+
+</head>
+<body>
+    <form action="/admin/add-item" method="post" enctype="multipart/form-data">
+        <div class="form-control">
+            <label for="title">Title</label>
+            <input type="text" name="title" id="title">
+        </div>
+        <div class="form-control">
+            <label for="itemImage">Image</label>
+            <input type="file" name="itemImage" id="itemImage">
+        </div>
+        <div class="form-control">
+            <label for="itemModel">3D Model</label>
+            <input type="file" name="itemModel" id="itemModel">
+        </div>
+        <button class="btn" type="submit">Add Item</button>
+    </form>
+
+</body>
+</html>

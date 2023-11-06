@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <script src="https://raw.githack.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-detector.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-handler.js"></script>
+    
+    <title>Food Menu AR</title>
+</head>
+<body>
+    <a-scene
+    vr-mode-ui="enabled: false;"
+    loading-screen="enabled: false;"
+    renderer="logarithmicDepthBuffer: true;"
+    arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;"
+    id="scene"
+    embedded
+    gesture-detector
+>
+
+    <% for (let product of products) { %>
+        <!-- <article class="card product-item">
+            <header class="card__header">
+                <h1 class="product__title"><%= product.title %></h1>
+            </header>
+            <div class="card__image">
+                <img src="<%= product.markerImagePath %>"
+                    alt="<%= product.title %>">
+                    <p>Marker Path<%= product.markerImagePath %></p>
+            </div>
+            <div class="card__content">
+                <p>Pattern File Path<%= product.patternFilePath %></p>
+            </div>
+            <div class="card__actions">
+                <p>Model File Path<%= product.modelPath %></p>
+            </div>
+        </article> -->
+
+
+    <!-- <a-assets>
+        <a-asset-item
+            id="<%= product.id %>"
+            src="assets/table/Table_Web_Glb/Table.glb"
+        ></a-asset-item>
+    </a-assets>
+
+    <a-marker
+        id="<%= product.id %>"
+        type="pattern"
+        preset="custom"
+        url="assets/pattern/pattern-marker.patt"
+        raycaster="objects: .clickable"
+        emitevents="true"
+        cursor="fuse: false; rayOrigin: mouse;"
+        id="markerA"
+    >
+        <a-entity
+            id="bowser-model"
+            scale="0.3824031874339614 0.3824031874339614 0.3824031874339614"
+            animation-mixer="loop: repeat"
+            gltf-model="#animated-asset"
+            class="clickable"
+            gesture-handler
+        ></a-entity>
+    </a-marker> -->
+
+    <a-assets>
+        <a-asset-item
+            id="<%= product.id %>"
+            src="<%= product.modelPath %>"
+        ></a-asset-item>
+    </a-assets>
+
+    <a-marker
+        id="animated-marker"
+        type="pattern"
+        preset="custom"
+        url="<%= product.patternFilePath %>"
+        raycaster="objects: .clickable"
+        emitevents="true"
+        cursor="fuse: false; rayOrigin: mouse;"
+        id="markerA"
+    >
+        <a-entity
+            id="bowser-model"
+            position="0.95 0.4 0"
+            animation-mixer="loop: repeat"
+            gltf-model="#<%= product.id %>"
+            class="clickable"
+            gesture-handler
+        ></a-entity>
+    </a-marker>
+        <% console.log(product.patternFilePath) %>
+
+    <% } %>
+
+    <a-entity camera></a-entity>
+</a-scene>
+</body>
+</html>
