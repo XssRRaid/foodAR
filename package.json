@@ -5,13 +5,15 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js",
+    "start": "nodemon app.js",
     "start-server": "node app.js"
   },
   "author": "Sarath Unnithan",
   "license": "ISC",
   "devDependencies": {
-    "nodemon": "^3.0.1"
+    "autoprefixer": "^10.4.16",
+    "nodemon": "^3.0.1",
+    "tailwindcss": "^3.3.5"
   },
   "dependencies": {
     "@ar-js-org/ar.js": "^3.4.5",
