@@ -85,19 +85,21 @@
         cursor="fuse: false; rayOrigin: mouse;"
         id="markerA"
     >
+    <a-sky color="teal" opacity="0.7"></a-sky>
+
         <a-entity
             id="bowser-model"
-            position="0.95 0.4 0"
             animation-mixer="loop: repeat"
             gltf-model="#<%= product.id %>"
             class="clickable"
             gesture-handler
         ></a-entity>
+
     </a-marker>
         <% console.log(product.patternFilePath) %>
 
     <% } %>
-
+    <!-- <a-sky color="#222"></a-sky> -->
     <a-entity camera></a-entity>
 </a-scene>
 </body>
