@@ -1,43 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="/styles/styles.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+<%- include('includes/head.ejs') %>
     <title>Food Menu AR</title>
 </head>
 <body>
 
-    <nav class="flex items-center justify-between flex-wrap bg-teal-500 p-8 mb-4">
-        <div class="flex items-center flex-shrink-0 text-white mr-6">
-          <span class="font-semibold text-xl tracking-tight">Food Menu AR</span>
-        </div>
-        <div class="block lg:hidden">
-          <button class="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white">
-            <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
-          </button>
-        </div>
-        <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
-          <div class="text-sm lg:flex-grow">
-            <a href="/" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4 active">
-              Home
-            </a>
-            <a href="/food-ar" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
-                Food-AR
-            </a>
-            <a href="/admin/add-item" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white">
-              Add Item
-            </a>
-          </div>
-        </div>
-    </nav>
+    <%- include('includes/navigation.ejs') %>
+
   
    
-    <main class="mx-auto px-8">
-        <section class="intro flex gap-6">
-            <div class="introText flex flex-col gap-5 justify-center">
-                <h1 class="font-semibold text-lg">Welcome To Our AR Enabled Food Menu</h1>
+    <main class="px-8 mx-auto">
+        <section class="flex gap-6 intro">
+            <div class="flex flex-col justify-center gap-5 introText">
+                <h1 class="text-lg font-semibold">Welcome To Our AR Enabled Food Menu</h1>
                 <p>Just scan the QR code and point your camera to the menu item image to view the 3D model in AR</p>
             </div>
 
@@ -47,39 +20,21 @@
         </section>
 
         <hr>
-        <section class="foodMenu mt-7 grid gap-8">
+        <section class="grid foodMenu mt-7 justify-center gap-y-28">
         <% if (products.length > 0) { %>
 
             <% for (let product of products) { %>
-            <div class="max-w-sm w-full lg:max-w-full lg:flex">
+            <div class=" justify-center overflow-hidden lg:flex border-2 border-solid rounded-lg border-gray-400">
 
-                <img class="h-48 lg:h-auto lg:w-auto flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden border-s border-b border-l border-gray-400 lg:border-r-0 lg:border-t lg:border-gray-400" src="<%= product.markerImagePath %>" alt="<%= product.title %>">
-                <div class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col  justify-center leading-normal">
-                    <div class="text-gray-900 font-bold text-xl mb-2"><%= product.title %></div>
+                <img class="flex-none h-48 overflow-hidden text-center bg-cover lg:h-auto lg:w-auto" src="<%= product.markerImagePath %>" alt="<%= product.title %>">
+                <div class="flex flex-col justify-start pt-16 pl-4 pr-10 leading-normal bg-white">
+                    <div class="mb-2 text-xl font-bold text-gray-900"><%= product.title %></div>
                 </div>
               </div>
             <% } %>
             <% } else { %>
             <h1>No Products Found!</h1>
         <% } %>
-
-            <% if (products.length > 0) { %>
-                <div class="grid bg-red">
-                    <% for (let product of products) { %>
-                        <article class="card product-item">
-                            <header class="card__header">
-                                <h1 class="product__title"><%= product.title %></h1>
-                            </header>
-                            <div class="card__image">
-                                <img src="<%= product.markerImagePath %>"
-                                    alt="<%= product.title %>">
-                            </div>                        
-                        </article>
-                    <% } %>
-                </div>
-            <% } else { %>
-                <h1>No Products Found!</h1>
-            <% } %>
         </section>
 
     </main>
