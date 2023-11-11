@@ -85,13 +85,13 @@ const options = {
     
   // Creating https server by passing 
   // options and app object 
-  https.createServer(options, app) 
-  .listen(3000, function (req, res) { 
-    console.log("HTTPS Server started at port 3000"); 
-  });
+  // https.createServer(options, app) 
+  // .listen(3001, function (req, res) { 
+  //   console.log("HTTPS Server started at port 3000"); 
+  // });
 
 
-// const server = app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+const server = app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
-// server.keepAliveTimeout = 120 * 1000;
-// server.headersTimeout = 120 * 1000;
+server.keepAliveTimeout = 120 * 1000;
+server.headersTimeout = 120 * 1000;
