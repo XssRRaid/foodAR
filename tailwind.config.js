@@ -3,6 +3,7 @@ module.exports = {
   content: [
     "./public/**/*.{html,js,css}",
     "./views/*.ejs",
+    "./views/**/*.ejs",
   ],
   theme: {
     fontFamily: {
@@ -18,6 +19,9 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    // ...
+    require('@tailwindcss/forms'),
+  ],
 }
 
