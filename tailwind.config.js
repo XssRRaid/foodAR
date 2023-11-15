@@ -6,10 +6,10 @@ module.exports = {
     "./views/**/*.ejs",
   ],
   theme: {
-    fontFamily: {
-      sans: ['Graphik', 'sans-serif'],
-      serif: ['Merriweather', 'serif'],
-    },
+    // fontFamily: {
+    //   sans: ['Graphik', 'sans-serif'],
+    //   serif: ['Merriweather', 'serif'],
+    // },
     extend: {
       fontFamily: {
         sans: ['Inter var', 'sans'],

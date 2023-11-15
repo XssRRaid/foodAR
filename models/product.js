@@ -31,6 +31,10 @@ var imageName = null
 let markerFileName = '';
 let markerImagePath = '';
 
+// let patternRatio = ""
+// let imageSize = ""
+// let borderColor = ""
+
 
 //////////////////////////////////////////////////////////////////////////////
 //		function to encode image
@@ -104,6 +108,8 @@ THREEx.ArPatternFile.triggerDownload =  function(patternFileString, fileName = '
 
 THREEx.ArPatternFile.buildFullMarker =  function(innerImageURL, pattRatio, size, color, onComplete){
 
+
+	
 	var whiteMargin = 0.1
 	var blackMargin = (1 - 2 * whiteMargin) * ((1-pattRatio)/2)
 	// var blackMargin = 0.2
@@ -149,8 +155,11 @@ THREEx.ArPatternFile.buildFullMarker =  function(innerImageURL, pattRatio, size,
 		onComplete(imageUrl)
 	}
 	innerImage.src = innerImageURL;
+
+
 	// Write the image to file
 	const buffer = canvas.toBuffer("image/png");
+
 
 	// const markerImagePath = path.join(path.dirname(process.mainModule.filename), 'public', 'image', markerFileName);
 
@@ -158,18 +167,22 @@ THREEx.ArPatternFile.buildFullMarker =  function(innerImageURL, pattRatio, size,
 
 }
 
-function updateFullMarkerImage(){
-	var patternRatio = 50/100
-	var imageSize = 512
-	var borderColor = "black"
-	
+function updateFullMarkerImage(patternRatio = 70/100, imageSize = 250, borderColor = "yellow"){
+	// var patternRatio = 50/100
+	// var imageSize = 512
+	// var borderColor = "black"
+	console.log("imageData" + patternRatio + imageSize + borderColor);
+
 	function hexaColor(color) {
 		return /^#[0-9A-F]{6}$/i.test(color);
 	};
 
 
+
 	THREEx.ArPatternFile.buildFullMarker(innerImageURL, patternRatio, imageSize, borderColor, function onComplete(markerUrl){
 		fullMarkerURL = markerUrl
+
+
 	})
 }
 
@@ -196,11 +209,17 @@ const getProductsFromFile = callBack => {
 module.exports = class Product {
 
 
-    constructor(title, image, model) {
+    constructor(title, image, model, patternRatio, imageSize, borderColor) {
         this.id = Math.random().toString();
         this.title = title;
         this.imagePath = path.join(path.dirname(process.mainModule.filename), 'public', 'image', image);
         this.modelPath = path.join('model', model);
+
+		this.patternRatio = Number(patternRatio / 100)
+		this.imageSize =  Number(imageSize)
+		this.borderColor = borderColor
+
+		console.log(this)
     }
 
     save(imageName){
@@ -209,11 +228,11 @@ module.exports = class Product {
 		let patternFileName = imageName + '.patt';
 		markerFileName = imageName + '.png';
 
-		let patternFilePath = path.join(path.dirname(process.mainModule.filename), 'data', patternFileName);
-		markerImagePath = path.join(path.dirname(process.mainModule.filename), 'public', 'image', markerFileName);
+		let patternFilePath = path.join(path.dirname(process.mainModule.filename), 'data', 'patt', patternFileName);
+		markerImagePath = path.join(path.dirname(process.mainModule.filename), 'public', 'image', 'marker', markerFileName);
 
 		this.patternFilePath = patternFileName;
-		this.markerImagePath = path.join("/", 'image', markerFileName);
+		this.markerImagePath = path.join("/", 'image', 'marker', markerFileName);
 
         getProductsFromFile(products => {
             products.push(this)
@@ -221,7 +240,7 @@ module.exports = class Product {
                 console.log(err)
             })
         })
-		console.log(innerImageURL)
+		console.log(patternFilePath)
 
         // innerImageURL = '/image/inner-arjs.png'
         THREEx.ArPatternFile.encodeImageURL(innerImageURL, function onComplete(patternFileString){
@@ -230,7 +249,7 @@ module.exports = class Product {
             })
 		})
 
-		updateFullMarkerImage()
+		updateFullMarkerImage(this.patternRatio, this.imageSize, this.borderColor)
     }
 
     static fetchAll(callBack) {
