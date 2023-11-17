@@ -167,7 +167,7 @@ THREEx.ArPatternFile.buildFullMarker =  function(innerImageURL, pattRatio, size,
 
 }
 
-function updateFullMarkerImage(patternRatio = 70/100, imageSize = 250, borderColor = "yellow"){
+function updateFullMarkerImage(patternRatio = 50/100, imageSize = 512, borderColor = "black"){
 	// var patternRatio = 50/100
 	// var imageSize = 512
 	// var borderColor = "black"
@@ -213,7 +213,7 @@ module.exports = class Product {
         this.id = Math.random().toString();
         this.title = title;
         this.imagePath = path.join(path.dirname(process.mainModule.filename), 'public', 'image', image);
-        this.modelPath = path.join('model', model);
+        this.modelPath = path.join("/", 'model', model);
 
 		this.patternRatio = Number(patternRatio / 100)
 		this.imageSize =  Number(imageSize)
@@ -231,7 +231,7 @@ module.exports = class Product {
 		let patternFilePath = path.join(path.dirname(process.mainModule.filename), 'data', 'patt', patternFileName);
 		markerImagePath = path.join(path.dirname(process.mainModule.filename), 'public', 'image', 'marker', markerFileName);
 
-		this.patternFilePath = patternFileName;
+		this.patternFilePath = path.join("/", 'patt', patternFileName);
 		this.markerImagePath = path.join("/", 'image', 'marker', markerFileName);
 
         getProductsFromFile(products => {
@@ -250,6 +250,8 @@ module.exports = class Product {
 		})
 
 		updateFullMarkerImage(this.patternRatio, this.imageSize, this.borderColor)
+
+		// updateFullMarkerImage()
     }
 
     static fetchAll(callBack) {
