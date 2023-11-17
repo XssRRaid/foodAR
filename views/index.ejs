@@ -1,5 +1,5 @@
 <%- include('includes/head.ejs') %>
-    <title>Food Menu AR</title>
+    <title>3D AR</title>
 </head>
 <body>
 
@@ -8,19 +8,21 @@
   
    
     <main class="px-8 mx-auto">
-        <section class="flex gap-6 intro">
-            <div class="flex flex-col justify-center gap-5 introText">
-                <h1 class="text-lg font-semibold">Welcome To Our AR Enabled Food Menu</h1>
-                <p>Just scan the QR code and point your camera to the menu item image to view the 3D model in AR</p>
+        <section class="grid md:grid-cols-3 gap-6 intro">
+            <div class="md:col-span-2 flex flex-col justify-center gap-5 introText">
+                <h1 class="text-lg font-semibold">Welcome To Our 3D AR Enabled Menu</h1>
+                <p class="text-justify"><b>Step 1: </b>Scan the QR code to launch the app. It will ask for Camera permission. Click on Allow to continue</p>
+                <p class="text-justify"><b>Step 2: </b>Point your camera to any of the Item images shown below. This will load the 3D model for the respective item.</p>
+                <p class="text-justify"><b>Step 3: </b>You can interact with the 3d model shown to rotate, zoom in / out. </p>
             </div>
 
-            <div class="appQR">
-                <img src="/image/qr.png">
+            <div class="appQR flex justify-center items-center">
+                <img class="max-w-[250px]" src="/image/qr.png">
             </div>  
         </section>
 
         <hr>
-        <section class="grid foodMenu mt-7 justify-center gap-y-28">
+        <section class="grid foodMenu my-10 justify-center gap-y-20">
         <% if (products.length > 0) { %>
 
             <% for (let product of products) { %>
