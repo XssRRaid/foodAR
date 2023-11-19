@@ -78,20 +78,20 @@ app.use(errorController.get404);
 
 // Creating object of key and certificate 
 // for SSL 
-const options = { 
-    key: fs.readFileSync("./privateKey.key"), 
-    cert: fs.readFileSync("./certificate.crt"), 
-  }; 
+// const options = { 
+//     key: fs.readFileSync("./privateKey.key"), 
+//     cert: fs.readFileSync("./certificate.crt"), 
+//   }; 
     
-  // Creating https server by passing 
-  // options and app object 
-  https.createServer(options, app) 
-  .listen(3002, function (req, res) { 
-    console.log("HTTPS Server started at port 3000"); 
-  });
+//   // Creating https server by passing 
+//   // options and app object 
+//   https.createServer(options, app) 
+//   .listen(3004, function (req, res) { 
+//     console.log("HTTPS Server started at port 3000"); 
+//   });
 
 
-// const server = app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+const server = app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
-// server.keepAliveTimeout = 120 * 1000;
-// server.headersTimeout = 120 * 1000;
+server.keepAliveTimeout = 120 * 1000;
+server.headersTimeout = 120 * 1000;
