@@ -38,10 +38,10 @@
                 <div class="grid gap-y-4">            
                     <div class="grid">
                         <label class="mdl-js-ripple-effect" for="patternRatioSlider">
-                            <span class="">Pattern Ratio 0.50</span>
+                            <span class="">Pattern Ratio 0.65</span>
                         </label>
                          
-                        <input id='patternRatioSlider' name="patternRatioSlider" class="" type="range" min="10" max="90" value="50" >
+                        <input id='patternRatioSlider' name="patternRatioSlider" class="" type="range" min="10" max="90" value="65" >
                         <div class='text-teal-200 text-xs' for='patternRatioSlider'>
                             Set size of inner image vs black border
                         </div>
@@ -49,10 +49,10 @@
             
                     <div class='grid'>
                         <label class="" for="imageSize">
-                            <span class="">Image size 512px</span>
+                            <span class="">Image size 450px</span>
                         </label>
                         
-                        <input id='imageSize' name="imageSize" class="" type="range" min="150" max="2500" value="512" >
+                        <input id='imageSize' name="imageSize" class="" type="range" min="150" max="2500" value="450" >
                         <div class='text-teal-200 text-xs' for='patternRatioSlider'>
                             Set the pixel width/height of the image.
                         </div>
@@ -149,35 +149,39 @@
 	var fullMarkerURL = null
 	var imageName = null
 
+    let patternRatio = 0.65
+    let imageSize = 450
+    let borderColor = "black"
+
 	innerImageURL = 'image/inner-arjs.png'
 	updateFullMarkerImage()
 
     document.querySelector('#patternRatioSlider').addEventListener('input', function(){
 	// update the patternRatio number
-	var patternRatio = document.querySelector('#patternRatioSlider').value/100
+	patternRatio = document.querySelector('#patternRatioSlider').value/100
 	var domElement = document.querySelector('[for=patternRatioSlider] span')
 	domElement.innerHTML = `Pattern Ratio ${patternRatio.toFixed(2)}`
 
 	// update fullMarkerImage
-	updateFullMarkerImage(patternRatio, 512, )
+	updateFullMarkerImage(patternRatio, imageSize, borderColor)
 })
 
 document.querySelector('#imageSize').addEventListener('input', function(){
 	// update the patternRatio number
-	var imageSize = document.querySelector('#imageSize').value
+	imageSize = document.querySelector('#imageSize').value
 	var domElement = document.querySelector('[for=imageSize] span')
 	domElement.innerHTML = `Image size ${imageSize}px`
 
 	// update fullMarkerImage
-	updateFullMarkerImage()
+	updateFullMarkerImage(patternRatio, imageSize, borderColor)
 })
 
 document.querySelector('#borderColor').addEventListener('input', function(){
-	var imageSize = document.querySelector('#borderColor').value
+    borderColor = document.querySelector('#borderColor').value
 	var domElement = document.querySelector('[for=borderColor] span')
 
 	// update fullMarkerImage
-	updateFullMarkerImage()
+	updateFullMarkerImage(patternRatio, imageSize, borderColor)
 })
 
 

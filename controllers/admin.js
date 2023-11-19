@@ -36,5 +36,5 @@ console.log(req.body)
   const imageNameOnly = imageName.split('.')
 // console.log(imageNameOnly[0])
   product.save(imageNameOnly[0]);
-  res.redirect("/");
+  res.render("admin/add-item");
 };
