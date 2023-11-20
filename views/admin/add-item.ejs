@@ -15,22 +15,35 @@
             <div class="grid gap-y-4">
                 <h2 class="md: text-2xl text-center underline">Add New Menu Item</h2>
                 
-                <div class="grid gap-y-4">
-                    <div>
-                        <label for="title" class="text-sm font-medium leading-6 ">Item Title</label>
-                        <div class="flex rounded-md shadow-sm  w-min">
-                            <input required class="text-gray-500" type="text" name="title" id="title">
-                        </div>
-                    </div>
-        
-                    <div>
-                        <label for="itemModel">Upload 3D Model (.glb)</label>
-                        <input required class=" w-[217px]" type="file" name="itemModel" id="itemModel">
-                    </div>
+                <div class="grid gap-y-4 auto-cols-max">
+                    <div class="grid md:grid-cols-2 gap-x-4">
 
-                    <div class=" w-min">
+                        <div class="w-min">
+                            <label for="title" class="text-sm font-medium leading-6 ">Item Title</label>
+                            <div class="flex rounded-md shadow-sm  w-min">
+                                <input required class="text-gray-500" type="text" name="title" id="title">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="title" class="text-sm font-medium leading-6 ">Project Type</label>
+                            <div class="flex rounded-md shadow-sm  w-min">
+                                <select required class="text-gray-500" name="projectType" id="projectType">
+                                    <option value="furniture">Furniture</option>
+                                    <option value="food">Food Menu</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>  
+
+                    <div class="grid md:flex gap-x-4">
                         <label for="itemImage">Upload Item Image (jpeg/png)</label>
                         <input required type="file" name="itemImage" id="itemImage" class="rounded-md w-[217px]">
+                    </div>
+        
+                    <div class="grid md:flex gap-x-4">
+                        <label for="itemModel">Upload 3D Model (.glb)</label>
+                        <input required class=" w-[217px]" type="file" name="itemModel" id="itemModel">
                     </div>
             
                 </div>

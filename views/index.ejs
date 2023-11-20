@@ -1,13 +1,57 @@
 <%- include('includes/head.ejs') %>
     <title>3D AR</title>
+
+    <style>
+        
+        /* Style the tab */
+        .tab {
+          overflow: hidden;
+          border: 1px solid #0c9f8f;
+          /* background-color: #f1f1f1; */
+        }
+        
+        /* Style the buttons inside the tab */
+        .tab button {
+          background-color: inherit;
+          float: left;
+          border: none;
+          outline: none;
+          cursor: pointer;
+          padding: 14px 16px;
+          transition: 0.3s;
+          font-size: 17px;
+        }
+        
+        /* Change background color of buttons on hover */
+        .tab button:hover {
+          background-color: #0a9384;
+        }
+        
+        /* Create an active/current tablink class */
+        .tab button.active {
+          background-color: #0c9f8f;
+        }
+        
+        /* Style the tab content */
+        .tabcontent {
+          display: none;
+          padding: 6px 12px;
+          border: 1px solid #0c9f8f;
+          border-top: none;
+        }
+        </style>
+
 </head>
 <body>
 
     <%- include('includes/navigation.ejs') %>
 
-  
+  <%         console.log(furnitures)
+  console.log("foodProducts2")
+  console.log(foodProducts) 
+  %>
    
-    <main class="px-8 mx-auto">
+    <main class="px-8 grid gap-y-7 mx-auto">
         <section class="grid md:grid-cols-3 gap-6 intro">
             <div class="md:col-span-2 flex flex-col justify-center gap-5 introText">
                 <h1 class="text-lg font-semibold">Welcome To Our 3D AR Enabled Menu</h1>
@@ -16,13 +60,63 @@
                 <p class="text-justify"><b>Step 3: </b>You can interact with the 3d model shown to rotate, zoom in / out. </p>
             </div>
 
-            <div class="appQR flex justify-center items-center">
+            <div class="appQR flex justify-center md:justify-end items-center">
                 <img class="max-w-[250px]" src="/image/qr.png">
             </div>  
         </section>
 
         <hr>
-        <section class="grid foodMenu my-10 justify-center gap-y-20">
+
+        <section class="menu">
+
+            <div class="tab bg-teal-500 grid grid-cols-2 rounded-t-md">
+                <button class="tablinks" onclick="openCity(event, 'Furniture')" id="defaultOpen">Furniture Menu</button>
+                <button class="tablinks" onclick="openCity(event, 'Food')">Food Menu</button>
+            </div>
+            
+            <div id="Furniture" class="tabcontent rounded-b-md">
+                <section class="grid foodMenu my-10 justify-center gap-y-20">
+                <% if (furnitures.length > 0) { %>
+        
+                    <% for (let product of furnitures) { %>
+                    <div class=" justify-center overflow-hidden lg:flex border-2 border-solid rounded-lg border-gray-400">
+        
+                        <img class="flex-none h-48 overflow-hidden text-center bg-cover lg:h-auto lg:w-auto" src="<%= product.markerImagePath %>" alt="<%= product.title %>">
+                        <div class="flex flex-col justify-start pt-16 pl-4 pr-10 leading-normal bg-white">
+                            <div class="mb-2 text-xl font-bold text-gray-900"><%= product.title %></div>
+                        </div>
+                        </div>
+                    <% } %>
+                    <% } else { %>
+                    <h1>No Products Found!</h1>
+                <% } %>
+                </section>
+            </div>
+            
+            <div id="Food" class="tabcontent rounded-b-md">
+                <section class="grid foodMenu my-10 justify-center gap-y-20">
+                <% if (foodProducts.length > 0) { %>
+        
+                    <% for (let product of foodProducts) { %>
+                    <div class=" justify-center overflow-hidden lg:flex border-2 border-solid rounded-lg border-gray-400">
+        
+                        <img class="flex-none h-48 overflow-hidden text-center bg-cover lg:h-auto lg:w-auto" src="<%= product.markerImagePath %>" alt="<%= product.title %>">
+                        <div class="flex flex-col justify-start pt-16 pl-4 pr-10 leading-normal bg-white">
+                            <div class="mb-2 text-xl font-bold text-gray-900"><%= product.title %></div>
+                        </div>
+                        </div>
+                    <% } %>
+                    <% } else { %>
+                    <h1>No Products Found!</h1>
+                <% } %>
+                </section>
+            </div>
+
+        </section>
+
+        <hr>
+
+        <!-- <section class="grid foodMenu my-10 justify-center gap-y-20">
         <% if (products.length > 0) { %>
 
             <% for (let product of products) { %>
@@ -37,8 +131,27 @@
             <% } else { %>
             <h1>No Products Found!</h1>
         <% } %>
-        </section>
+        </section> -->
 
     </main>
+
+    <script>
+        function openCity(evt, cityName) {
+          var i, tabcontent, tablinks;
+          tabcontent = document.getElementsByClassName("tabcontent");
+          for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+          }
+          tablinks = document.getElementsByClassName("tablinks");
+          for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+          }
+          document.getElementById(cityName).style.display = "block";
+          evt.currentTarget.className += " active";
+        }
+        
+        // Get the element with id="defaultOpen" and click on it
+        document.getElementById("defaultOpen").click();
+        </script>
 </body>
 </html>
