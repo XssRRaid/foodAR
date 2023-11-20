@@ -171,7 +171,7 @@ function updateFullMarkerImage(patternRatio = 50/100, imageSize = 512, borderCol
 	// var patternRatio = 50/100
 	// var imageSize = 512
 	// var borderColor = "black"
-	console.log("imageData" + patternRatio + imageSize + borderColor);
+	// console.log("imageData" + patternRatio + imageSize + borderColor);
 
 	function hexaColor(color) {
 		return /^#[0-9A-F]{6}$/i.test(color);
@@ -220,7 +220,7 @@ module.exports = class Product {
 		this.imageSize =  Number(imageSize)
 		this.borderColor = borderColor
 
-		console.log(this)
+		// console.log(this)
     }
 
     save(imageName){
@@ -241,7 +241,7 @@ module.exports = class Product {
                 console.log(err)
             })
         })
-		console.log(patternFilePath)
+		// console.log(patternFilePath)
 
         // innerImageURL = '/image/inner-arjs.png'
         THREEx.ArPatternFile.encodeImageURL(innerImageURL, function onComplete(patternFileString){

@@ -68,7 +68,11 @@ app.use(multer({ storage: storage1 }).fields([
 
 app.use('/admin', adminRoutes);
 
-app.use('/food-ar', frontEndController.getAR)
+// app.use('/food-ar', frontEndController.getAR)
+
+app.use('/ar/:type', frontEndController.getAR)
+
+app.use('/ar/', frontEndController.getAR)
 
 app.get('/', frontEndController.getIndex)
 

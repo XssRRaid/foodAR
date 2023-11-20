@@ -6,7 +6,6 @@ let foodProducts = [];
 
 exports.getIndex = (req, res, next) => {
 
-
     Product.findByType("furniture", (product => {
             furnitures = product
         }));
@@ -26,16 +25,48 @@ exports.getIndex = (req, res, next) => {
           });
     }));   
 };
-console.log(furnitures)
+// console.log(furnitures)
 
 exports.getAR = (req, res, next) => {
+    
+    // Retrieve the tag from our URL path
+    const projectType = req.params.type;
 
-    Product.fetchAll((products => {
-        // console.log(products)
-        res.render('foodAR', {
-            products: products,
-            pageTitle: 'Food Menu AR',
-            path: '/food-ar',
+    if(projectType === 'furnitures') {
+        Product.findByType("furniture", (product => {
+            console.log("product:")
+            console.log(product)
+
+            res.render('foodAR', {
+            products: product,
+            pageTitle: 'Furniture Menu AR',
+            path: '/ar/' + projectType,
           });
-    }));   
+        }));
+    }
+    else if(projectType === 'food') {
+        Product.findByType("food", (product => {
+            console.log("product:")
+            console.log(product)
+            
+            res.render('foodAR', {
+            products: product,
+            pageTitle: 'Furniture Menu AR',
+            path: '/ar/' + projectType,
+          });
+        }));
+    }
+    else {
+        res.send('nothing')
+    }
+
+    // Product.fetchAll((products => {
+    //     // console.log(products)
+    //     // res.render('foodAR', {
+    //     //     products: products,
+    //     //     pageTitle: 'Food Menu AR',
+    //     //     path: '/food-ar',
+    //     //   });
+        
+    // }));   
 };
