@@ -209,9 +209,10 @@ const getProductsFromFile = callBack => {
 module.exports = class Product {
 
 
-    constructor(title, image, model, patternRatio, imageSize, borderColor) {
+    constructor(title, type, image, model, patternRatio, imageSize, borderColor) {
         this.id = Math.random().toString();
         this.title = title;
+        this.type = type;
         this.imagePath = path.join(path.dirname(process.mainModule.filename), 'public', 'image', image);
         this.modelPath = path.join("/", 'model', model);
 
@@ -263,6 +264,20 @@ module.exports = class Product {
           const product = products.find(p => p.id === id)
           callBack(product)
         })
+    }
+
+	static findByType(type, callBack) {
+
+
+        getProductsFromFile(products => {				
+          const product = products.filter(function (el) {
+			return el.type === type; // Changed this so a home would match
+		  });
+		//   console.log(product)
+          callBack(product)
+        })
+
+		
     }
 
 }
