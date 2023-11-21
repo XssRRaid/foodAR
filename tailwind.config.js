@@ -15,7 +15,7 @@ module.exports = {
         sans: ['Inter var', 'sans'],
       },
       colors: {
-        'primary': '#1fb6ff',
+        'primary': '#d81f27',
       },
     },
   },
