@@ -57,7 +57,7 @@ exports.getAR = (req, res, next) => {
         }));
     }
     else {
-        res.send('nothing')
+        res.render('selectProject')
     }
 
     // Product.fetchAll((products => {
