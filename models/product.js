@@ -262,8 +262,6 @@ module.exports = class Product {
     static findById(id, callBack) {
         getProductsFromFile(products => {
           const product = products.find(p => p.id === id)
-		console.log(product)
-
           callBack(product)
         })
     }

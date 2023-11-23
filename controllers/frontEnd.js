@@ -31,17 +31,22 @@ exports.getModel = (req, res, next) => {
      // Retrieve the tag from our URL path
      const prodId = req.params.id;
 
-    Product.findById("1", (product => {
+    Product.findById(prodId, (product => {
         productData = product
+		// console.log(productData)
+
+        if(productData) {
+            // console.log(productData)
+            res.render('Model', {
+                product: productData
+            })
+         }
+         else {
+            res.send('no model found')
+         }
     }));
 
-     if(productData) {
-        console.log(productData)
-        res.render('Model')
-     }
-     else {
-        res.send('no model found')
-     }
+    
 
 }
 
