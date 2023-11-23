@@ -76,7 +76,7 @@
                     <% for (let product of furnitures) { %>
                     <div class="justify-center overflow-hidden border-2 border-gray-400 border-solid rounded-lg lg:flex">
                         
-                        <a href="/model/<%= product.id %>">
+                        <a href="/model/<%= product.id %>" target="_blank">
                             <img class="flex-none h-48 overflow-hidden text-center bg-cover lg:h-auto lg:w-auto" src="<%= product.markerImagePath %>" alt="<%= product.title %>">
                         </a>
                         <div class="flex flex-col justify-start pt-16 pl-4 pr-10 leading-normal bg-white">
@@ -97,7 +97,7 @@
                     <% for (let product of foodProducts) { %>
                     <div class="justify-center overflow-hidden border-2 border-gray-400 border-solid rounded-lg lg:flex">
         
-                        <a href="/model/<%= product.id %>">
+                        <a href="/model/<%= product.id %>" target="_blank">
                             <img class="flex-none h-48 overflow-hidden text-center bg-cover lg:h-auto lg:w-auto" src="<%= product.markerImagePath %>" alt="<%= product.title %>">
                         </a>
                         <div class="flex flex-col justify-start pt-16 pl-4 pr-10 leading-normal bg-white">
