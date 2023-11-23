@@ -3,6 +3,7 @@ const Product = require("../models/product");
 // let furnitures = ['s'];
 let furnitures = [];
 let foodProducts = [];
+let productData = []
 
 exports.getIndex = (req, res, next) => {
 
@@ -25,7 +26,24 @@ exports.getIndex = (req, res, next) => {
           });
     }));   
 };
-// console.log(furnitures)
+
+exports.getModel = (req, res, next) => {
+     // Retrieve the tag from our URL path
+     const prodId = req.params.id;
+
+    Product.findById("1", (product => {
+        productData = product
+    }));
+
+     if(productData) {
+        console.log(productData)
+        res.render('Model')
+     }
+     else {
+        res.send('no model found')
+     }
+
+}
 
 exports.getAR = (req, res, next) => {
     
