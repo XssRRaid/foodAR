@@ -996,6 +996,10 @@ select {
   height: 2rem;
 }
 
+.h-\[90vh\] {
+  height: 90vh;
+}
+
 .h-auto {
   height: auto;
 }
@@ -1026,6 +1030,10 @@ select {
 
 .w-\[217px\] {
   width: 217px;
+}
+
+.w-\[90vw\] {
+  width: 90vw;
 }
 
 .w-auto {
