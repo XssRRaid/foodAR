@@ -1,0 +1,30 @@
+<%- include('includes/head.ejs') %>
+    <title>Model Viewer</title>
+    <!-- Import the model-viewer component -->
+</head>
+<body>
+
+    <%- include('includes/navigation.ejs') %>
+
+    <main>
+        <div class="grid justify-center gap-8 px-8">
+            <h1 class="mt-4 text-2xl">Model viewers</h1>
+
+            <!-- Use it like any other HTML element -->
+            <model-viewer  src="/model/1700723609694-Chair.glb" ar 
+                alt="A Chair" 
+                poster="/image/1700723609649-chair.png"
+                shadow-intensity="1" 
+                camera-controls 
+                touch-action="pan-y">
+            </model-viewer>
+        </div>
+    </main>
+
+    
+
+    <script type="module"
+        src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
+    </script>
+</body>
+</html>

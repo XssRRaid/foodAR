@@ -76,6 +76,9 @@ app.use('/ar/', frontEndController.getAR)
 
 app.get('/', frontEndController.getIndex)
 
+app.get('/model/:id', frontEndController.getModel)
+app.get('/model/', frontEndController.getModel)
+
 app.use(errorController.get404);
 
 // app.listen(80);
