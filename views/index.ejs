@@ -75,8 +75,10 @@
         
                     <% for (let product of furnitures) { %>
                     <div class="justify-center overflow-hidden border-2 border-gray-400 border-solid rounded-lg lg:flex">
-        
-                        <img class="flex-none h-48 overflow-hidden text-center bg-cover lg:h-auto lg:w-auto" src="<%= product.markerImagePath %>" alt="<%= product.title %>">
+                        
+                        <a href="/model/<%= product.id %>">
+                            <img class="flex-none h-48 overflow-hidden text-center bg-cover lg:h-auto lg:w-auto" src="<%= product.markerImagePath %>" alt="<%= product.title %>">
+                        </a>
                         <div class="flex flex-col justify-start pt-16 pl-4 pr-10 leading-normal bg-white">
                             <div class="mb-2 text-xl font-bold text-gray-900"><%= product.title %></div>
                         </div>
@@ -95,7 +97,9 @@
                     <% for (let product of foodProducts) { %>
                     <div class="justify-center overflow-hidden border-2 border-gray-400 border-solid rounded-lg lg:flex">
         
-                        <img class="flex-none h-48 overflow-hidden text-center bg-cover lg:h-auto lg:w-auto" src="<%= product.markerImagePath %>" alt="<%= product.title %>">
+                        <a href="/model/<%= product.id %>">
+                            <img class="flex-none h-48 overflow-hidden text-center bg-cover lg:h-auto lg:w-auto" src="<%= product.markerImagePath %>" alt="<%= product.title %>">
+                        </a>
                         <div class="flex flex-col justify-start pt-16 pl-4 pr-10 leading-normal bg-white">
                             <div class="mb-2 text-xl font-bold text-gray-900"><%= product.title %></div>
                         </div>

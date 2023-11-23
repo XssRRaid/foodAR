@@ -11,13 +11,16 @@
             <h1 class="mt-4 text-2xl">Model viewers</h1>
 
             <!-- Use it like any other HTML element -->
-            <model-viewer  src="/model/1700723609694-Chair.glb" ar 
+            <model-viewer  src="<%= product.modelPath %>" ar 
                 alt="A Chair" 
-                poster="/image/1700723609649-chair.png"
+                poster="<%= product.imagePath %>"
                 shadow-intensity="1" 
                 camera-controls 
                 touch-action="pan-y">
             </model-viewer>
+            
+
+            <%= console.log(product.id )%>
         </div>
     </main>
 
