@@ -1,18 +1,20 @@
 <nav class="flex items-center justify-between px-8 mb-4 md:justify-start gap-x-5 bg-primary">
   <div class="flex items-center text-white">
-    <span class="text-xl font-semibold tracking-tight">3D AR</span>
+    <span class="text-xl font-semibold tracking-tight w-max">3D AR</span>
   </div>
   <!-- <div class="block lg:hidden">
       <button class="flex items-center px-3 py-2 text-teal-200 border border-teal-400 rounded hover:text-white hover:border-white">
         <svg class="w-3 h-3 fill-current" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
       </button>
     </div> -->
-  <div class="flex items-center lg:items-center ">
-    <div class="flex gap-x-2 ">
+  <div class="grid items-center lg:items-center gap-x-2 w-full grid-cols-[max-content_max-content_1fr]">
+    <div>
       <a href="/" class="block p-5 text-white lg:inline-block lg:mt-0 hover:text-white active">
         Home
       </a>
+    </div>
 
+    <div>
       <div class="flex block p-5 text-white dropdown lg:inline-block lg:mt-0 hover:text-white">
         <button class="flex dropbtn gap-x-2">
           <span>AR</span>
@@ -30,10 +32,26 @@
           </a>
         </div>
       </div>
-
-      <a href="/admin/add-item" class="block p-5 text-white lg:inline-block lg:mt-0 hover:text-white">
-        Add Item
-      </a>
     </div>
+
+    <!-- admin links -->
+    <div class="justify-self-end">
+      <%  if (!isAuthenticated) { %>
+        <a class="<%= path === '/login' ? 'active' : '' %> block p-5 text-white lg:inline-block lg:mt-0 hover:text-white" href="/login">Login</a>
+        <!-- <a class="<%= path === '/signup' ? 'active' : '' %>" href="/signup">Signup</a> -->
+
+      <% } else { %>
+        <a href="/admin/add-item" class="block p-5 text-white lg:inline-block lg:mt-0 hover:text-white">
+          Add Item
+        </a>
+        <form class="block p-5 text-white lg:inline-block lg:mt-0 hover:text-white" action="/logout" method="post">
+          <input type="hidden" value="<%= csrfToken %>" name="_csrf">
+          <button type="submit">Logout</button>
+      </form>
+      <% } %>
+  
+    </div>
+
+
   </div>
 </nav>
