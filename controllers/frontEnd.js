@@ -6,7 +6,6 @@ let foodProducts = [];
 let productData = []
 
 exports.getIndex = (req, res, next) => {
-
     Product.findByType("furniture", (product => {
             furnitures = product
         }));
