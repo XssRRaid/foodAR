@@ -5,6 +5,9 @@
     <!-- include THREEx.ArPatternFile -->
     <script src='/js/threex-arpatternfile.js'></script>
 
+    <!-- pattern generator -->
+    <script type="text/javascript" src="/js/identicon.js"></script>
+
 </head>
 <body>
     <%- include('../includes/navigation.ejs') %>
@@ -86,6 +89,7 @@
 
                 <div class="grid items-center justify-center w-auto">
                     <div id='imageContainer' class="md:text-2xl">Marker Image Preview</div>
+                    <div id='identicon' class="grid items-center justify-center"></div>
                 </div>
 
                 <div class="items-center">
@@ -251,6 +255,25 @@ function updateFullMarkerImage(){
 			container.appendChild(fullMarkerImage)
 		})
 	}
+
+    document.querySelector('#title').addEventListener('input', function() {
+
+        var title = document.querySelector('#title').value
+        identicon.generate({ id: title, size: 350 }, function(err, buffer) {
+
+        if (err) throw err;
+
+        var img = new Image();
+        img.src = buffer;
+        // document.getElementById('identicon').appendChild(img);
+
+        // put fullMarkerImage into #imageContainer
+        var container = document.querySelector('#identicon')
+
+        while (container.firstChild) container.removeChild(container.firstChild);
+        container.appendChild(img)
+});
+})
 
 
 </script>
