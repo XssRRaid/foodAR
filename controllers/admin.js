@@ -1,6 +1,10 @@
 const Product = require("../models/product");
 const path = require('path')
 
+const identicon = require('identicon')
+const fs = require('fs')
+
+
 exports.getAddProduct = (req, res, next) => {
     
   res.render("admin/add-item", {
