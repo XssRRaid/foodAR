@@ -39,10 +39,10 @@
                         </div>
                     </div>  
 
-                    <div class="grid md:flex gap-x-4">
+                    <!-- <div class="grid md:flex gap-x-4">
                         <label for="itemImage">Upload Item Image (jpeg/png)</label>
                         <input required type="file" name="itemImage" id="itemImage" class="rounded-md w-[217px]">
-                    </div>
+                    </div> -->
         
                     <div class="grid md:flex gap-x-4">
                         <label for="itemModel">Upload 3D Model (.glb)</label>
@@ -93,6 +93,7 @@
                 </div>
 
                 <div class="items-center">
+                <input type="hidden" value="<%= csrfToken %>" name="_csrf">
                     <button class="w-full text-gray-500 transition-all border-2 rounded-md bg-zinc-200 hover:bg-zinc-50 button hover:text-gray-800" type="submit">Add Item</button>
                 </div>
             </div>
@@ -202,20 +203,20 @@ document.querySelector('#borderColor').addEventListener('input', function(){
 })
 
 
-document.querySelector('#itemImage').addEventListener('change', function(){
-	var file = this.files[0];
-	imageName = file.name
-	// remove file extension
-	imageName = imageName.substring(0, imageName.lastIndexOf('.')) || imageName
-	// debugger
+// document.querySelector('#itemImage').addEventListener('change', function(){
+// 	var file = this.files[0];
+// 	imageName = file.name
+// 	// remove file extension
+// 	imageName = imageName.substring(0, imageName.lastIndexOf('.')) || imageName
+// 	// debugger
 
-	var reader = new FileReader();
-	reader.onload = function(event){
-		innerImageURL = event.target.result
-		updateFullMarkerImage()
-	};
-	reader.readAsDataURL(file);
-})
+// 	var reader = new FileReader();
+// 	reader.onload = function(event){
+// 		innerImageURL = event.target.result
+// 		updateFullMarkerImage()
+// 	};
+// 	reader.readAsDataURL(file);
+// })
 
 function updateFullMarkerImage(){
 		// get patternRatio

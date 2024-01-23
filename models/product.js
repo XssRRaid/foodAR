@@ -3,6 +3,8 @@ const products = [];
 const fs = require('fs');
 const path = require('path')
 
+const identicon = require('identicon')
+
 // const AR = require('@ar-js-org/ar.js')
 // eval(fs.readFileSync(path.join(path.dirname(process.mainModule.filename), 'public', 'js', 'threex-arpatternfile.js'))+'');
 
@@ -160,7 +162,8 @@ THREEx.ArPatternFile.buildFullMarker =  function(innerImageURL, pattRatio, size,
 	// Write the image to file
 	const buffer = canvas.toBuffer("image/png");
 
-
+console.log("markerImagePath")
+console.log(markerImagePath)
 	// const markerImagePath = path.join(path.dirname(process.mainModule.filename), 'public', 'image', markerFileName);
 
 	fs.writeFileSync(markerImagePath, buffer);
@@ -220,17 +223,24 @@ module.exports = class Product {
 		this.imageSize =  Number(imageSize)
 		this.borderColor = borderColor
 
+	
 		// console.log(this)
     }
 
     save(imageName){
 
 		innerImageURL = this.imagePath;
+
 		let patternFileName = imageName + '.patt';
 		markerFileName = imageName + '.png';
 
+
+
 		let patternFilePath = path.join(path.dirname(process.mainModule.filename), 'data', 'patt', patternFileName);
 		markerImagePath = path.join(path.dirname(process.mainModule.filename), 'public', 'image', 'marker', markerFileName);
+
+		console.log("patternFilePath")
+		console.log(patternFilePath)
 
 		this.patternFilePath = path.join("/", 'patt', patternFileName);
 		this.markerImagePath = path.join("/", 'image', 'marker', markerFileName);
