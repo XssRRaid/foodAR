@@ -24,7 +24,7 @@ exports.postAddProduct = (req, res, next) => {
   const imageSize  = req.body.imageSize;
   const borderColor = req.body.borderColor;
 
-  const imageName = image.itemImage[0].filename;
+  // const imageName = image.itemImage[0].filename;
   const modelName = image.itemModel[0].filename;
 
 // console.log(image.itemImage[0].path)
@@ -32,13 +32,26 @@ exports.postAddProduct = (req, res, next) => {
 // console.log(path.join(path.dirname(process.mainModule.filename), 'public', 'image', imageName))
 
 
-// console.log("patternRatio")
-// console.log(req.body)
+const imageFileName = title + '.png'
+imagePath = path.join(path.dirname(process.mainModule.filename), 'public', 'image', imageFileName);
 
-  const product = new Product(title, type, imageName, modelName, patternRatio, imageSize, borderColor);
+		// Asynchronous API
+		identicon.generate({ id: title, size: 350 }, (err, buffer) => {
+			if (err) throw err
 
-  const imageNameOnly = imageName.split('.')
+			// buffer is identicon in PNG format.
+			fs.writeFileSync(imagePath, buffer)
+
+      const product = new Product(title, type, imageFileName, modelName, patternRatio, imageSize, borderColor);
+
+  const imageNameOnly = title
 // console.log(imageNameOnly[0])
-  product.save(imageNameOnly[0]);
+  console.log("patternRatio")
+console.log(imageFileName)
+
+  product.save(title);
   res.render("admin/add-item");
+		});
+
+  
 };
