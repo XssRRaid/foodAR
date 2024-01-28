@@ -1,296 +1,338 @@
-const products = [];
+const mongoose = require('mongoose');
 
-const fs = require('fs');
-const path = require('path')
+const Schema = mongoose.Schema;
 
-const identicon = require('identicon')
+const productSchema = new Schema({
+  title: {
+    type: String,
+    required: true
+  },
+  type: {
+    type: String,
+    required: true
+  },
+  imagePath: {
+    type: String,
+    required: true
+  },
+  modelPath: {
+    type: String,
+    required: true
+  },
+  patternRatio: {
+    type: String,
+    required: true
+  },
+  imageSize: {
+    type: String,
+    required: true
+  },
+  borderColor: {
+    type: String,
+    required: true
+  },
+  patternFilePath: {
+    type: String,
+    required: true
+  },
+  markerImagePath: {
+    type: String,
+    required: true
+  }
+});
 
-// const AR = require('@ar-js-org/ar.js')
-// eval(fs.readFileSync(path.join(path.dirname(process.mainModule.filename), 'public', 'js', 'threex-arpatternfile.js'))+'');
+module.exports = mongoose.model('Product', productSchema);
 
-// const THREEx = require('../public/js/threex-arpatternfile.js')
+// const products = [];
 
-// eval(fs.readFileSync('../public/js/threex-arpatternfile.js')+'');
-// import { Image } from "canvas";
-const Canvas = require('canvas')
+// const fs = require('fs');
+// const path = require('path')
 
-const { createCanvas, loadImage } = require('canvas')
-const canvas = createCanvas(16, 16)
-const context = canvas.getContext('2d')
+// const identicon = require('identicon')
 
+// // const AR = require('@ar-js-org/ar.js')
+// // eval(fs.readFileSync(path.join(path.dirname(process.mainModule.filename), 'public', 'js', 'threex-arpatternfile.js'))+'');
 
-var THREEx = THREEx || {}
+// // const THREEx = require('../public/js/threex-arpatternfile.js')
 
-THREEx.ArPatternFile = {}
+// // eval(fs.readFileSync('../public/js/threex-arpatternfile.js')+'');
+// // import { Image } from "canvas";
+// const Canvas = require('canvas')
 
-THREEx.ArPatternFile.toCanvas = function(patternFileString, onComplete){
-	console.assert(false, 'not yet implemented')
-}
-
-var innerImageURL = null
-var fullMarkerURL = null
-var imageName = null
-let markerFileName = '';
-let markerImagePath = '';
-
-// let patternRatio = ""
-// let imageSize = ""
-// let borderColor = ""
-
-
-//////////////////////////////////////////////////////////////////////////////
-//		function to encode image
-//////////////////////////////////////////////////////////////////////////////
-
-THREEx.ArPatternFile.encodeImageURL = function(imageURL, onComplete){
-	var image = new Canvas.Image;
-	image.onload = function(){
-		var patternFileString = THREEx.ArPatternFile.encodeImage(image)
-		onComplete(patternFileString)
-	}
-	image.src = imageURL;
-}
-
-THREEx.ArPatternFile.encodeImage = function(image){
-
-	var patternFileString = ''
-	for(var orientation = 0; orientation > -2*Math.PI; orientation -= Math.PI/2){
-		// draw on canvas - honor orientation
-		context.save();
- 		context.clearRect(0,0,canvas.width,canvas.height);
-		context.translate(canvas.width/2,canvas.height/2);
-		context.rotate(orientation);
-		context.drawImage(image, -canvas.width/2,-canvas.height/2, canvas.width, canvas.height);
-		context.restore();
-
-		// get imageData
-		var imageData = context.getImageData(0, 0, canvas.width, canvas.height)
-
-		// generate the patternFileString for this orientation
-		if( orientation !== 0 )	patternFileString += '\n'
-		// NOTE bgr order and not rgb!!! so from 2 to 0
-		for(var channelOffset = 2; channelOffset >= 0; channelOffset--){
-			// console.log('channelOffset', channelOffset)
-			for(var y = 0; y < imageData.height; y++){
-				for(var x = 0; x < imageData.width; x++){
-
-					if( x !== 0 ) patternFileString += ' '
-
-					var offset = (y*imageData.width*4) + (x * 4) + channelOffset
-					var value = imageData.data[offset]
-
-					patternFileString += String(value).padStart(3);
-				}
-				patternFileString += '\n'
-			}
-		}
-	}
-
-	return patternFileString
-}
-
-//////////////////////////////////////////////////////////////////////////////
-//		trigger download
-//////////////////////////////////////////////////////////////////////////////
-
-THREEx.ArPatternFile.triggerDownload =  function(patternFileString, fileName = 'pattern-marker.patt'){
-	// tech from https://stackoverflow.com/questions/3665115/create-a-file-in-memory-for-user-to-download-not-through-server
-	var domElement = window.document.createElement('a');
-	domElement.href = window.URL.createObjectURL(new Blob([patternFileString], {type: 'text/plain'}));
-	domElement.download = fileName;
-
-	// console.log(patternFileString)
-
-	document.body.appendChild(domElement)
-	domElement.click();
-	document.body.removeChild(domElement)
-
-	
-}
-
-THREEx.ArPatternFile.buildFullMarker =  function(innerImageURL, pattRatio, size, color, onComplete){
+// const { createCanvas, loadImage } = require('canvas')
+// const canvas = createCanvas(16, 16)
+// const context = canvas.getContext('2d')
 
 
-	
-	var whiteMargin = 0.1
-	var blackMargin = (1 - 2 * whiteMargin) * ((1-pattRatio)/2)
-	// var blackMargin = 0.2
+// var THREEx = THREEx || {}
 
-	var innerMargin = whiteMargin + blackMargin
+// THREEx.ArPatternFile = {}
 
-	// var canvas = document.createElement('canvas');
-	// var context = canvas.getContext('2d')
-	canvas.width = canvas.height = size
-	console.log("size2 " + size + " : " + pattRatio + " : " + innerImageURL )
+// THREEx.ArPatternFile.toCanvas = function(patternFileString, onComplete){
+// 	console.assert(false, 'not yet implemented')
+// }
 
-	context.fillStyle = 'white';
-	context.fillRect(0,0,canvas.width, canvas.height)
+// var innerImageURL = null
+// var fullMarkerURL = null
+// var imageName = null
+// let markerFileName = '';
+// let markerImagePath = '';
 
-	// copy image on canvas
-	context.fillStyle = color;
-	context.fillRect(
-		whiteMargin * canvas.width,
-		whiteMargin * canvas.height,
-		canvas.width * (1-2*whiteMargin),
-		canvas.height * (1-2*whiteMargin)
-	);
-
-	// clear the area for innerImage (in case of transparent image)
-	context.fillStyle = 'white';
-	context.fillRect(
-		innerMargin * canvas.width,
-		innerMargin * canvas.height,
-		canvas.width * (1-2*innerMargin),
-		canvas.height * (1-2*innerMargin)
-	);
-
-	// display innerImage in the middle
-	var innerImage = new Canvas.Image;
-	innerImage.onload = function(){
-			// draw innerImage
-			context.drawImage(innerImage,
-			innerMargin * canvas.width,
-			innerMargin * canvas.height,
-			canvas.width * (1-2*innerMargin),
-			canvas.height * (1-2*innerMargin)
-		);
-		var imageUrl = canvas.toDataURL()
-		onComplete(imageUrl)
-	}
-	innerImage.src = innerImageURL;
+// // let patternRatio = ""
+// // let imageSize = ""
+// // let borderColor = ""
 
 
-	// Write the image to file
-	const buffer = canvas.toBuffer("image/png");
+// //////////////////////////////////////////////////////////////////////////////
+// //		function to encode image
+// //////////////////////////////////////////////////////////////////////////////
 
-console.log("markerImagePath")
-console.log(markerImagePath)
-	// const markerImagePath = path.join(path.dirname(process.mainModule.filename), 'public', 'image', markerFileName);
+// THREEx.ArPatternFile.encodeImageURL = function(imageURL, onComplete){
+// 	var image = new Canvas.Image;
+// 	image.onload = function(){
+// 		var patternFileString = THREEx.ArPatternFile.encodeImage(image)
+// 		onComplete(patternFileString)
+// 	}
+// 	image.src = imageURL;
+// }
 
-	fs.writeFileSync(markerImagePath, buffer);
-console.log(buffer)
+// THREEx.ArPatternFile.encodeImage = function(image){
 
+// 	var patternFileString = ''
+// 	for(var orientation = 0; orientation > -2*Math.PI; orientation -= Math.PI/2){
+// 		// draw on canvas - honor orientation
+// 		context.save();
+//  		context.clearRect(0,0,canvas.width,canvas.height);
+// 		context.translate(canvas.width/2,canvas.height/2);
+// 		context.rotate(orientation);
+// 		context.drawImage(image, -canvas.width/2,-canvas.height/2, canvas.width, canvas.height);
+// 		context.restore();
 
-}
+// 		// get imageData
+// 		var imageData = context.getImageData(0, 0, canvas.width, canvas.height)
 
-function updateFullMarkerImage(patternRatio = 50/100, imageSize = 512, borderColor = "black"){
-	// var patternRatio = 50/100
-	// var imageSize = 512
-	// var borderColor = "black"
-	// console.log("imageData" + patternRatio + imageSize + borderColor);
+// 		// generate the patternFileString for this orientation
+// 		if( orientation !== 0 )	patternFileString += '\n'
+// 		// NOTE bgr order and not rgb!!! so from 2 to 0
+// 		for(var channelOffset = 2; channelOffset >= 0; channelOffset--){
+// 			// console.log('channelOffset', channelOffset)
+// 			for(var y = 0; y < imageData.height; y++){
+// 				for(var x = 0; x < imageData.width; x++){
 
-	function hexaColor(color) {
-		return /^#[0-9A-F]{6}$/i.test(color);
-	};
+// 					if( x !== 0 ) patternFileString += ' '
 
+// 					var offset = (y*imageData.width*4) + (x * 4) + channelOffset
+// 					var value = imageData.data[offset]
 
+// 					patternFileString += String(value).padStart(3);
+// 				}
+// 				patternFileString += '\n'
+// 			}
+// 		}
+// 	}
 
-	THREEx.ArPatternFile.buildFullMarker(innerImageURL, patternRatio, imageSize, borderColor, function onComplete(markerUrl){
-		fullMarkerURL = markerUrl
+// 	return patternFileString
+// }
 
+// //////////////////////////////////////////////////////////////////////////////
+// //		trigger download
+// //////////////////////////////////////////////////////////////////////////////
 
-	})
-}
+// THREEx.ArPatternFile.triggerDownload =  function(patternFileString, fileName = 'pattern-marker.patt'){
+// 	// tech from https://stackoverflow.com/questions/3665115/create-a-file-in-memory-for-user-to-download-not-through-server
+// 	var domElement = window.document.createElement('a');
+// 	domElement.href = window.URL.createObjectURL(new Blob([patternFileString], {type: 'text/plain'}));
+// 	domElement.download = fileName;
 
-// End of ThreeX
+// 	// console.log(patternFileString)
 
-        // THREEx.ArPatternFile.encodeImageURL(innerImageURL, function onComplete(patternFileString){
-		// 	console.log(patternFileString)
-		// })
-
-const p = path.join(path.dirname(process.mainModule.filename), 'data', 'products.json');
-
-
-const getProductsFromFile = callBack => {
-
-
-    fs.readFile(p, (err, fileContent) => {        
-        if(err) {
-            return callBack([]);
-        }
-        callBack(JSON.parse(fileContent));
-    })
-}
-
-module.exports = class Product {
-
-
-    constructor(title, type, image, model, patternRatio, imageSize, borderColor) {
-        this.id = Math.random().toString();
-        this.title = title;
-        this.type = type;
-        this.imagePath = path.join(path.dirname(process.mainModule.filename), 'public', 'image', image);
-        this.modelPath = path.join("/", 'model', model);
-
-		this.patternRatio = Number(patternRatio / 100)
-		this.imageSize =  Number(imageSize)
-		this.borderColor = borderColor
+// 	document.body.appendChild(domElement)
+// 	domElement.click();
+// 	document.body.removeChild(domElement)
 
 	
-		// console.log(this)
-    }
+// }
 
-    save(imageName){
-
-		innerImageURL = this.imagePath;
-
-		let patternFileName = imageName + '.patt';
-		markerFileName = imageName + '.png';
+// THREEx.ArPatternFile.buildFullMarker =  function(innerImageURL, pattRatio, size, color, onComplete){
 
 
+	
+// 	var whiteMargin = 0.1
+// 	var blackMargin = (1 - 2 * whiteMargin) * ((1-pattRatio)/2)
+// 	// var blackMargin = 0.2
 
-		let patternFilePath = path.join(path.dirname(process.mainModule.filename), 'data', 'patt', patternFileName);
-		markerImagePath = path.join(path.dirname(process.mainModule.filename), 'public', 'image', 'marker', markerFileName);
+// 	var innerMargin = whiteMargin + blackMargin
 
-		console.log("patternFilePath")
-		console.log(patternFilePath)
+// 	// var canvas = document.createElement('canvas');
+// 	// var context = canvas.getContext('2d')
+// 	canvas.width = canvas.height = size
 
-		this.patternFilePath = path.join("/", 'patt', patternFileName);
-		this.markerImagePath = path.join("/", 'image', 'marker', markerFileName);
+// 	context.fillStyle = 'white';
+// 	context.fillRect(0,0,canvas.width, canvas.height)
 
-        getProductsFromFile(products => {
-            products.push(this)
-            fs.writeFile(p, JSON.stringify(products), (err) => {
-                console.log(err)
-            })
-        })
-		// console.log(patternFilePath)
+// 	// copy image on canvas
+// 	context.fillStyle = color;
+// 	context.fillRect(
+// 		whiteMargin * canvas.width,
+// 		whiteMargin * canvas.height,
+// 		canvas.width * (1-2*whiteMargin),
+// 		canvas.height * (1-2*whiteMargin)
+// 	);
 
-        // innerImageURL = '/image/inner-arjs.png'
-        THREEx.ArPatternFile.encodeImageURL(innerImageURL, function onComplete(patternFileString){
-            fs.writeFile(patternFilePath, patternFileString, (err) => {
-                console.log(err)
-            })
-		})
+// 	// clear the area for innerImage (in case of transparent image)
+// 	context.fillStyle = 'white';
+// 	context.fillRect(
+// 		innerMargin * canvas.width,
+// 		innerMargin * canvas.height,
+// 		canvas.width * (1-2*innerMargin),
+// 		canvas.height * (1-2*innerMargin)
+// 	);
 
-		updateFullMarkerImage(this.patternRatio, this.imageSize, this.borderColor)
-
-		// updateFullMarkerImage()
-    }
-
-    static fetchAll(callBack) {
-        getProductsFromFile(callBack)
-    }
-
-    static findById(id, callBack) {
-        getProductsFromFile(products => {
-          const product = products.find(p => p.id === id)
-          callBack(product)
-        })
-    }
-
-	static findByType(type, callBack) {
+// 	// display innerImage in the middle
+// 	var innerImage = new Canvas.Image;
+// 	innerImage.onload = function(){
+// 			// draw innerImage
+// 			context.drawImage(innerImage,
+// 			innerMargin * canvas.width,
+// 			innerMargin * canvas.height,
+// 			canvas.width * (1-2*innerMargin),
+// 			canvas.height * (1-2*innerMargin)
+// 		);
+// 		var imageUrl = canvas.toDataURL()
+// 		onComplete(imageUrl)
+// 	}
+// 	innerImage.src = innerImageURL;
 
 
-        getProductsFromFile(products => {				
-          const product = products.filter(function (el) {
-			return el.type === type; // Changed this so a home would match
-		  });
-		//   console.log(product)
-          callBack(product)
-        })
+// 	// Write the image to file
+// 	const buffer = canvas.toBuffer("image/png");
+
+// console.log("markerImagePath")
+// console.log(markerImagePath)
+// 	// const markerImagePath = path.join(path.dirname(process.mainModule.filename), 'public', 'image', markerFileName);
+
+// 	fs.writeFileSync(markerImagePath, buffer);
+
+// }
+
+// function updateFullMarkerImage(patternRatio = 50/100, imageSize = 512, borderColor = "black"){
+// 	// var patternRatio = 50/100
+// 	// var imageSize = 512
+// 	// var borderColor = "black"
+// 	// console.log("imageData" + patternRatio + imageSize + borderColor);
+
+// 	function hexaColor(color) {
+// 		return /^#[0-9A-F]{6}$/i.test(color);
+// 	};
+
+
+
+// 	THREEx.ArPatternFile.buildFullMarker(innerImageURL, patternRatio, imageSize, borderColor, function onComplete(markerUrl){
+// 		fullMarkerURL = markerUrl
+
+
+// 	})
+// }
+
+// // End of ThreeX
+
+//         // THREEx.ArPatternFile.encodeImageURL(innerImageURL, function onComplete(patternFileString){
+// 		// 	console.log(patternFileString)
+// 		// })
+
+// const p = path.join(path.dirname(process.mainModule.filename), 'data', 'products.json');
+
+
+// const getProductsFromFile = callBack => {
+
+
+//     fs.readFile(p, (err, fileContent) => {        
+//         if(err) {
+//             return callBack([]);
+//         }
+//         callBack(JSON.parse(fileContent));
+//     })
+// }
+
+// module.exports = class Product {
+
+
+//     constructor(title, type, image, model, patternRatio, imageSize, borderColor) {
+//         this.id = Math.random().toString();
+//         this.title = title;
+//         this.type = type;
+//         this.imagePath = path.join(path.dirname(process.mainModule.filename), 'public', 'image', image);
+//         this.modelPath = path.join("/", 'model', model);
+
+// 		this.patternRatio = Number(patternRatio / 100)
+// 		this.imageSize =  Number(imageSize)
+// 		this.borderColor = borderColor
+
+	
+// 		// console.log(this)
+//     }
+
+//     save(imageName){
+
+// 		innerImageURL = this.imagePath;
+
+// 		let patternFileName = imageName + '.patt';
+// 		markerFileName = imageName + '.png';
+
+
+
+// 		let patternFilePath = path.join(path.dirname(process.mainModule.filename), 'data', 'patt', patternFileName);
+// 		markerImagePath = path.join(path.dirname(process.mainModule.filename), 'public', 'image', 'marker', markerFileName);
+
+// 		console.log("patternFilePath")
+// 		console.log(patternFilePath)
+
+// 		this.patternFilePath = path.join("/", 'patt', patternFileName);
+// 		this.markerImagePath = path.join("/", 'image', 'marker', markerFileName);
+
+//         getProductsFromFile(products => {
+//             products.push(this)
+//             fs.writeFile(p, JSON.stringify(products), (err) => {
+//                 console.log(err)
+//             })
+//         })
+// 		// console.log(patternFilePath)
+
+//         // innerImageURL = '/image/inner-arjs.png'
+//         THREEx.ArPatternFile.encodeImageURL(innerImageURL, function onComplete(patternFileString){
+//             fs.writeFile(patternFilePath, patternFileString, (err) => {
+//                 console.log(err)
+//             })
+// 		})
+
+// 		updateFullMarkerImage(this.patternRatio, this.imageSize, this.borderColor)
+
+// 		// updateFullMarkerImage()
+//     }
+
+//     static fetchAll(callBack) {
+//         getProductsFromFile(callBack)
+//     }
+
+//     static findById(id, callBack) {
+//         getProductsFromFile(products => {
+//           const product = products.find(p => p.id === id)
+//           callBack(product)
+//         })
+//     }
+
+// 	static findByType(type, callBack) {
+
+
+//         getProductsFromFile(products => {				
+//           const product = products.filter(function (el) {
+// 			return el.type === type; // Changed this so a home would match
+// 		  });
+// 		//   console.log(product)
+//           callBack(product)
+//         })
 
 		
-    }
+//     }
 
-}
+// }
