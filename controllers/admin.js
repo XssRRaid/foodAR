@@ -233,8 +233,8 @@ exports.postAddProduct = (req, res, next) => {
   let patternFileName = imageName + '.patt';
   markerFileName = imageName + '.png';
 
-  // const patternFilePath = path.join("/", 'patt', patternFileName);
-	const patternFilePath = path.join("/", 'patt', patternFileName);
+//   const patternFilePath = path.join("/", 'pattern', patternFileName);
+	const patternFilePath = path.join(path.dirname(process.mainModule.filename), 'data', 'pattern', patternFileName);
 
 	markerImagePath = path.join("/", 'image', 'marker', markerFileName);
 
