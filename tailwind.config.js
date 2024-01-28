@@ -1,4 +1,7 @@
 /** @type {import('tailwindcss').Config} */
+
+// npx tailwindcss -i ./public/styles/tailwind.css -o ./public/styles/styles.css --watch
+
 module.exports = {
   content: [
     "./public/**/*.{html,js,css}",

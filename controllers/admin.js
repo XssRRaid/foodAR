@@ -40,7 +40,6 @@ THREEx.ArPatternFile.encodeImageURL = function(imageURL, onComplete){
 		var patternFileString = THREEx.ArPatternFile.encodeImage(image)
 		onComplete(patternFileString)
 	}
-  console.log("innerImageURL " + imageURL )
 
 	image.src = imageURL;
 }
@@ -113,6 +112,8 @@ THREEx.ArPatternFile.buildFullMarker =  function(innerImageURL, pattRatio, size,
 	// var canvas = document.createElement('canvas');
 	// var context = canvas.getContext('2d')
 	canvas.width = canvas.height = size
+	console.log("size " + size + " : " + canvas.width )
+
 
 	context.fillStyle = 'white';
 	context.fillRect(0,0,canvas.width, canvas.height)
@@ -146,6 +147,7 @@ THREEx.ArPatternFile.buildFullMarker =  function(innerImageURL, pattRatio, size,
 			canvas.height * (1-2*innerMargin)
 		);
 		var imageUrl = canvas.toDataURL()
+
 		onComplete(imageUrl)
 	}
 	innerImage.src = innerImageURL;
@@ -157,7 +159,7 @@ THREEx.ArPatternFile.buildFullMarker =  function(innerImageURL, pattRatio, size,
 
 	markerImagePath = path.join(path.dirname(process.mainModule.filename), 'public', 'image', 'marker', markerFileName);
   console.log("markerImagePath1")
-  console.log(markerImagePath)
+  console.log(markerImagePath + " : " + innerImage.src )
 
 	fs.writeFileSync(markerImagePath, buffer);
   console.log("markerImagePath3")
@@ -180,6 +182,7 @@ function updateFullMarkerImage(patternRatio = 50/100, imageSize = 512, borderCol
 
 	THREEx.ArPatternFile.buildFullMarker(innerImageURL, patternRatio, imageSize, borderColor, function onComplete(markerUrl){
 		fullMarkerURL = markerUrl
+		console.log("innerImageURL" + " : " + innerImageURL )
 
 
 	})
