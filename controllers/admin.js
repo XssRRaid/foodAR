@@ -111,8 +111,8 @@ THREEx.ArPatternFile.buildFullMarker =  function(innerImageURL, pattRatio, size,
 
 	// var canvas = document.createElement('canvas');
 	// var context = canvas.getContext('2d')
-	canvas.width = canvas.height = 450
-	console.log("width3 " + size + " : " + blackMargin )
+	canvas.width = canvas.height = size
+	console.log("size2 " + size + " : " + pattRatio + " : " + innerImageURL )
 
 	canvas.width = size;
 
@@ -213,8 +213,8 @@ exports.postAddProduct = (req, res, next) => {
   // res.render('add-product', {pageTitle: 'Add Product'})
   const title = req.body.title;
   const type = req.body.projectType;
-  const patternRatio  = req.body.patternRatioSlider;
-  const imageSize  = req.body.imageSize;
+  const patternRatio  = Number(req.body.patternRatioSlider / 100)
+  const imageSize  = Number(req.body.imageSize);
   const borderColor = req.body.borderColor;
 
   const image = req.files;
