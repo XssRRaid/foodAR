@@ -222,8 +222,8 @@ exports.postAddProduct = (req, res, next) => {
 
   const imageFileName = title + '.png'
  
-  const imagePath = path.join("/", 'image', imageFileName)
-//   path.join(path.dirname(process.mainModule.filename), 'public', 'image', imageFileName);
+//   const imagePath = path.join("/", 'image', imageFileName)
+  path.join(path.dirname(process.mainModule.filename), 'image', imageFileName);
   const modelPath = path.join("/", 'model', modelName);
 
   // const imageNameOnly = title
