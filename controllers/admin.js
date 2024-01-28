@@ -221,7 +221,7 @@ exports.postAddProduct = (req, res, next) => {
   const modelName = image.itemModel[0].filename;
 
   const imageFileName = title + '.png'
-
+ 
   const imagePath = path.join(path.dirname(process.mainModule.filename), 'public', 'image', imageFileName);
   const modelPath = path.join("/", 'model', modelName);
 
@@ -234,9 +234,9 @@ exports.postAddProduct = (req, res, next) => {
   markerFileName = imageName + '.png';
 
   // const patternFilePath = path.join("/", 'patt', patternFileName);
-	const patternFilePath = path.join(path.dirname(process.mainModule.filename), 'data', 'patt', patternFileName);
+	const patternFilePath = path.join("/", 'patt', patternFileName);
 
-	markerImagePath = path.join(path.dirname(process.mainModule.filename), 'public', 'image', 'marker', markerFileName);
+	markerImagePath = path.join("/", 'image', 'marker', markerFileName);
 
   // Asynchronous API
   identicon.generate({ id: title, size: 350 }, (err, buffer) => {
