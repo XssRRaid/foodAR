@@ -121,7 +121,7 @@ THREEx.ArPatternFile.buildFullMarker =  function(innerImageURL, pattRatio, size,
 	// var canvas = document.createElement('canvas');
 	// var context = canvas.getContext('2d')
 	canvas.width = canvas.height = size
-	console.log("size2 " + size + " : " + pattRatio )
+	console.log("size2 " + size + " : " + pattRatio + " : " + innerImageURL )
 
 	context.fillStyle = 'white';
 	context.fillRect(0,0,canvas.width, canvas.height)
