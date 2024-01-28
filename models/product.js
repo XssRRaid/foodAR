@@ -167,6 +167,8 @@ console.log(markerImagePath)
 	// const markerImagePath = path.join(path.dirname(process.mainModule.filename), 'public', 'image', markerFileName);
 
 	fs.writeFileSync(markerImagePath, buffer);
+console.log(buffer)
+
 
 }
 
