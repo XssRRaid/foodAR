@@ -6,33 +6,49 @@ let foodProducts = [];
 let productData = []
 
 exports.getIndex = (req, res, next) => {
-    Product.findByType("furniture", (product => {
-            furnitures = product
-        }));
 
-    Product.findByType("food", (product => {
-            foodProducts = product
-        }));
+    Product.find({type: "furniture"})
+    .then(products => {
+      console.log(products);
+      furnitures = products;
+    })
+    .catch(err => {
+      console.log(err);
+    });
 
-    Product.fetchAll((products => {
+    Product.find({type: "food"})
+    .then(products => {
+      console.log(products);
+      foodProducts = products;
+    })
+    .catch(err => {
+      console.log(err);
+    });
 
-        res.render('index', {
-            products: products,
-            furnitures: furnitures,
-            foodProducts: foodProducts,
-            pageTitle: 'Homepage',
-            path: '/',
-          });
-    }));   
+    Product.find()
+    .then(products => {
+      console.log(products);
+
+      res.render('index', {
+        products: products,
+        furnitures: furnitures,
+        foodProducts: foodProducts,
+        pageTitle: 'Homepage',
+        path: '/',
+      });
+    })
+    .catch(err => {
+      console.log(err);
+    });
 };
 
 exports.getModel = (req, res, next) => {
      // Retrieve the tag from our URL path
      const prodId = req.params.id;
 
-    Product.findById(prodId, (product => {
+     Product.findById(prodId)
+     .then(product => {
         productData = product
-		// console.log(productData)
 
         if(productData) {
             // console.log(productData)
@@ -43,10 +59,8 @@ exports.getModel = (req, res, next) => {
          else {
             res.send('no model found')
          }
-    }));
-
-    
-
+     })
+     .catch(err => console.log(err));
 }
 
 exports.getAR = (req, res, next) => {
@@ -55,28 +69,30 @@ exports.getAR = (req, res, next) => {
     const projectType = req.params.type;
 
     if(projectType === 'furnitures') {
-        Product.findByType("furniture", (product => {
-            console.log("product:")
-            console.log(product)
-
+        Product.find({type: "furniture"})
+        .then(products => {
             res.render('foodAR', {
-            products: product,
-            pageTitle: 'Furniture Menu AR',
-            path: '/ar/' + projectType,
-          });
-        }));
+                products: products,
+                pageTitle: 'Furniture Menu AR',
+                path: '/ar/' + projectType,
+              });
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
     else if(projectType === 'food') {
-        Product.findByType("food", (product => {
-            console.log("product:")
-            console.log(product)
-            
+        Product.find({type: "food"})
+        .then(products => {
             res.render('foodAR', {
-            products: product,
-            pageTitle: 'Furniture Menu AR',
-            path: '/ar/' + projectType,
-          });
-        }));
+                products: products,
+                pageTitle: 'Food Menu AR',
+                path: '/ar/' + projectType,
+              });
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
     else {
         res.render('selectProject')
