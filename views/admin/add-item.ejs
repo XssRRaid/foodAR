@@ -14,7 +14,7 @@
 
     <div class="items-center p-8 mb-4">
 
-        <form class="grid p-8 text-white rounded-lg gap-y-8 bg-primary" action="/admin/add-item" method="post" enctype="multipart/form-data">
+        <form class="grid p-8 text-white rounded-lg gap-y-8 bg-primary" action="/admin/<% if (editing) { %>edit-item<% } else { %>add-item<% } %>" method="post" enctype="multipart/form-data">
             <div class="grid gap-y-4">
                 <h2 class="text-2xl text-center underline md:">Add New Menu Item</h2>
                 
@@ -24,14 +24,14 @@
                         <div class="w-min">
                             <label for="title" class="text-sm font-medium leading-6 ">Item Title</label>
                             <div class="flex rounded-md shadow-sm w-min">
-                                <input required class="text-gray-500" type="text" name="title" id="title">
+                                <input required class="text-gray-500" type="text" name="title" id="title" value="<% if (editing) { %><%= product.title %><% } %>">
                             </div>
                         </div>
 
                         <div>
                             <label for="title" class="text-sm font-medium leading-6 ">Project Type</label>
                             <div class="flex rounded-md shadow-sm w-min">
-                                <select required class="text-gray-500" name="projectType" id="projectType">
+                                <select required class="text-gray-500" name="projectType" id="projectType" value="<% if (editing) { %><%= product.type %><% } %>">
                                     <option value="furniture">Furniture</option>
                                     <option value="food">Food Menu</option>
                                 </select>
@@ -57,7 +57,7 @@
                             <span class="">Pattern Ratio 0.65</span>
                         </label>
                          
-                        <input id='patternRatioSlider' name="patternRatioSlider" class="" type="range" min="10" max="90" value="65" >
+                        <input id='patternRatioSlider' name="patternRatioSlider" class="" type="range" min="10" max="90" value="<% if (editing) { %><%= product.patternRatio * 100 %><% } else { %>65<% } %>">
                         <div class='text-xs text-teal-200' for='patternRatioSlider'>
                             Set size of inner image vs black border
                         </div>
@@ -68,8 +68,8 @@
                             <span class="">Image size 450px</span>
                         </label>
                         
-                        <input id='imageSize' name="imageSize" class="" type="range" min="150" max="2500" value="450" >
-                        <div class='text-xs text-teal-200' for='patternRatioSlider'>
+                        <input id='imageSize' name="imageSize" class="" type="range" min="150" max="2500" value="<% if (editing) { %><%= product.imageSize %><% } else {  %>450<% } %>">
+                        <div class='text-xs text-teal-200' for='imageSize'>
                             Set the pixel width/height of the image.
                         </div>
                     </div>
@@ -79,7 +79,7 @@
                             <span class="">Border color (choose a dark one)</span>
                         </label>
                         
-                        <input id='borderColor' name="borderColor" type="text" class="text-gray-500" value="black">
+                        <input id='borderColor' name="borderColor" type="text" class="text-gray-500" value="<% if (editing) { %><%= product.borderColor %><% } else { %>black<% } %>">
                         <div class='w-auto text-teal-200' for='borderColor'>
                            (hexa code or color name).
                         </div>
@@ -93,72 +93,17 @@
                 </div>
 
                 <div class="items-center">
+
+                <% if (editing) { %>
+                    <input type="hidden" value="<%= product._id %>" name="productId">
+                <% } %>
                 <input type="hidden" value="<%= csrfToken %>" name="_csrf">
-                    <button class="w-full text-gray-500 transition-all border-2 rounded-md bg-zinc-200 hover:bg-zinc-50 button hover:text-gray-800" type="submit">Add Item</button>
+                    <button class="w-full text-gray-500 transition-all border-2 rounded-md bg-zinc-200 hover:bg-zinc-50 button hover:text-gray-800" type="submit">
+                        <% if (editing) { %>Update Item<% } else { %>Add Item<% } %>
+                    </button>
                 </div>
             </div>
-            
-            <!-- <div class="grid gap-y-4">
-                <div>
-                    <label for="title" class="text-sm font-medium leading-6 ">Title</label>
-                    <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                        <input class="w-full text-gray-500" type="text" name="title" id="title">
-                    </div>
-                </div>
-    
-                <div>
-                    <label for="itemModel">3D Model</label>
-                    <input type="file" name="itemModel" id="itemModel">
-                </div>
-        
-            </div>
-    
-            <div class="grid gap-y-4">
-                <div class="">
-                    <label for="itemImage">Image</label>
-                    <input type="file" name="itemImage" id="itemImage" class="rounded-md">
-                </div>
-        
-                <div>
-                    <label class="mdl-js-ripple-effect" for="patternRatioSlider">
-                        <span class="">Pattern Ratio 0.50</span>
-                        <input id='patternRatioSlider' name="patternRatioSlider" class="mdl-slider mdl-js-slider" type="range" min="10" max="90" value="50" >
-                    </label>
-                    <div class='text-teal-200' for='patternRatioSlider'>
-                        Set size of inner image vs black border
-                    </div>
-                </div>
-        
-                <div class=''>
-                    <label class="mdl-js-ripple-effect" for="imageSize">
-                        <span class="">Image size 512px</span>
-                        <input id='imageSize' name="imageSize" class="mdl-slider mdl-js-slider" type="range" min="150" max="2500" value="512" >
-                    </label>
-                    <div class='text-teal-200' for='patternRatioSlider'>
-                        Set the pixel width/height of the image.
-                    </div>
-                </div>
-        
-                <div class='mdl-cell mdl-cell--12-col'>
-                    <label class="mdl-js-ripple-effect" for="borderColor">
-                        <span class="">Border color. Please choose a dark one.</span>
-                        <input id='borderColor' name="borderColor" type="text" value="black">
-                    </label>
-                    <div class='text-teal-200' for='borderColor'>
-                        Set the marker border color, using hexa code or color name.
-                    </div>
-                </div>
-        
-            </div>
-
-            <div class="grid items-center justify-center">
-                <div id='imageContainer' class="text-2xl">Images Preview</div>
-            </div>
-
-            <div class="col-span-3">
-                 <button class="w-full text-gray-500 transition-all border-2 rounded-md bg-zinc-200 hover:bg-zinc-50 button hover:text-gray-800" type="submit">Add Item</button>
-            </div> -->
-            
+                        
         </form>
     </div>
 
