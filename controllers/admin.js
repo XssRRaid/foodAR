@@ -229,7 +229,7 @@ console.log('asd here')
  
 //   const imagePath = path.join("/", 'image', imageFileName)
 // const imagePath = path.join(path.dirname(process.mainModule.filename), 'public', 'image', imageFileName);
-const imagePath = path.join("/", 'image', modelName);
+const imagePath = path.join("/", 'image', imageFileName);
   const modelPath = path.join("/", 'model', modelName);
 
   // const imageNameOnly = title
