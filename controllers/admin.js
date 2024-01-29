@@ -116,7 +116,7 @@ THREEx.ArPatternFile.buildFullMarker =  function(innerImageURL, pattRatio, size,
 
 	canvas.width = size;
 
-	context.fillStyle = 'white';
+	context.fillStyle = '#d81f27';
 	context.fillRect(0,0,canvas.width, canvas.height)
 
 	// copy image on canvas
@@ -199,7 +199,9 @@ function updateFullMarkerImage(patternRatio = 50/100, imageSize = 512, borderCol
 
 
 exports.getAddProduct = (req, res, next) => {
-    
+	// const editMode = req.query.edit;
+	console.log('no here!!')
+
   res.render("admin/add-item", {
     pageTitle: "Add Item",
     path: "/admin/add-product",
@@ -209,6 +211,8 @@ exports.getAddProduct = (req, res, next) => {
 };
 
 exports.postAddProduct = (req, res, next) => {
+console.log('asd here')
+
   // products.push({title: req.body.title})
   // res.render('add-product', {pageTitle: 'Add Product'})
   const title = req.body.title;
@@ -220,7 +224,8 @@ exports.postAddProduct = (req, res, next) => {
   const image = req.files;
   const modelName = image.itemModel[0].filename;
 
-  const imageFileName = title + '.png'
+  let imageName = title;
+  const imageFileName = imageName + '.png'
  
 //   const imagePath = path.join("/", 'image', imageFileName)
 const imagePath = path.join(path.dirname(process.mainModule.filename), 'public', 'image', imageFileName);
@@ -229,17 +234,15 @@ const imagePath = path.join(path.dirname(process.mainModule.filename), 'public',
   // const imageNameOnly = title
   innerImageURL = imagePath;
 
-  let imageName = title;
-
   let patternFileName = imageName + '.patt';
   markerFileName = imageName + '.png';
 
-  const patternFilePath = path.join("/", 'pattern', patternFileName);
-	// const patternFilePath = path.join(path.dirname(process.mainModule.filename), 'data', 'pattern', patternFileName);
+//   const patternFilePath = path.join("/", 'pattern', patternFileName);
+	const patternFilePath = path.join(path.dirname(process.mainModule.filename), 'data', 'pattern', patternFileName);
 
 	markerImagePath = path.join("/", 'image', 'marker', markerFileName);
 
-  // Asynchronous API
+  // Random pattern generator
   identicon.generate({ id: title, size: 350 }, (err, buffer) => {
     if (err) throw err
 
@@ -272,8 +275,150 @@ const imagePath = path.join(path.dirname(process.mainModule.filename), 'public',
     
         // innerImageURL = '/image/inner-arjs.png'
 
-    res.render("admin/add-item");
+    res.redirect("/admin/products");
   });
 
   
 };
+
+exports.getProducts = (req, res, next) => {
+	// let furnitures = ['s'];
+let furnitures = [];
+let foodProducts = [];
+
+	Product.find({type: "furniture"})
+    .then(products => {
+      console.log(products);
+      furnitures = products;
+    })
+    .catch(err => {
+      console.log(err);
+    });
+
+    Product.find({type: "food"})
+    .then(products => {
+      console.log(products);
+      foodProducts = products;
+    })
+    .catch(err => {
+      console.log(err);
+    });
+
+    Product.find()
+    .then(products => {
+      console.log(products);
+
+      res.render('admin/products', {
+        products: products,
+        furnitures: furnitures,
+        foodProducts: foodProducts,
+        pageTitle: 'Admin Products',
+        path: '/admin/products',
+		isAuthenticated: req.session.isLoggedIn
+      });
+    })
+    .catch(err => {
+      console.log(err);
+    });
+  };
+
+exports.getEditProduct = (req, res, next) => {
+	const editMode = req.query.edit;
+	if (!editMode) {
+	  return res.redirect('/');
+	}
+	const prodId = req.params.productId;
+	Product.findById(prodId)
+	  .then(product => {
+		if (!product) {
+		  return res.redirect('/');
+		}
+		res.render('admin/add-item', {
+		  pageTitle: 'Edit Product',
+		  path: '/admin/edit-item',
+		  editing: editMode,
+		  product: product,
+		  isAuthenticated: req.session.isLoggedIn
+		});
+	  })
+	  .catch(err => console.log(err));
+  };
+
+
+  exports.postEditProduct = (req, res, next) => {
+	const prodId = req.body.productId;
+
+		const title = req.body.title;
+		const type = req.body.projectType;
+		const patternRatio  = Number(req.body.patternRatioSlider / 100)
+		const imageSize  = Number(req.body.imageSize);
+		const borderColor = req.body.borderColor;
+
+		const image = req.files;
+		const modelName = image.itemModel[0].filename;
+
+		let imageName = title;
+		const imageFileName = imageName + '.png'
+ 
+	//   const imagePath = path.join("/", 'image', imageFileName)
+		const imagePath = path.join(path.dirname(process.mainModule.filename), 'public', 'image', imageFileName);
+		const modelPath = path.join("/", 'model', modelName);
+		
+		// const imageNameOnly = title
+		innerImageURL = imagePath;
+		
+		let patternFileName = imageName + '.patt';
+		markerFileName = imageName + '.png';
+	
+		//   const patternFilePath = path.join("/", 'pattern', patternFileName);
+		const patternFilePath = path.join(path.dirname(process.mainModule.filename), 'data', 'pattern', patternFileName);
+
+		markerImagePath = path.join("/", 'image', 'marker', markerFileName);
+
+		// Random pattern generator
+		identicon.generate({ id: title, size: 350 }, (err, buffer) => {
+			if (err) throw err
+
+			// buffer is identicon in PNG format.
+			fs.writeFileSync(imagePath, buffer)
+		console.log(prodId)
+			Product.findById(prodId)
+			.then(product => {
+				product.title = title, 
+				product.type = type,
+				product.imagePath = imagePath, 
+				product.modelPath = modelPath,
+				product.patternRatio = patternRatio,
+				product.imageSize =imageSize,
+				product.borderColor = borderColor,
+				product.patternFilePath = patternFilePath,
+				product.markerImagePath = markerImagePath
+				return product.save();
+			})
+			.then(result => {
+				console.log('UPDATED PRODUCT!');
+
+				console.log("markerImagePath: " + markerImagePath)
+				THREEx.ArPatternFile.encodeImageURL(innerImageURL, function onComplete(patternFileString){
+				  fs.writeFile(patternFilePath, patternFileString, (err) => {
+					  console.log(err)
+				  })
+				})
+			
+			  	updateFullMarkerImage(patternRatio, imageSize, borderColor)
+
+				res.redirect('/admin/products');
+			})
+			.catch(err => console.log(err));
+		})
+	};
+
+	exports.postDeleteProduct = (req, res, next) => {
+		const prodId = req.body.productId;
+		Product.findByIdAndRemove(prodId)
+		  .then(() => {
+			console.log('DESTROYED PRODUCT');
+			res.redirect('/admin/products');
+		  })
+		  .catch(err => console.log(err));
+	  };
