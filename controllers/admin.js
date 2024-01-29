@@ -361,8 +361,8 @@ exports.getEditProduct = (req, res, next) => {
 		let imageName = title;
 		const imageFileName = imageName + '.png'
  
-	//   const imagePath = path.join("/", 'image', imageFileName)
-		const imagePath = path.join(path.dirname(process.mainModule.filename), 'public', 'image', imageFileName);
+	  const imagePath = path.join("/", 'image', imageFileName)
+		// const imagePath = path.join(path.dirname(process.mainModule.filename), 'public', 'image', imageFileName);
 		const modelPath = path.join("/", 'model', modelName);
 		
 		// const imageNameOnly = title
