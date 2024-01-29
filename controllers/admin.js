@@ -211,7 +211,6 @@ exports.getAddProduct = (req, res, next) => {
 };
 
 exports.postAddProduct = (req, res, next) => {
-console.log('asd here')
 
   // products.push({title: req.body.title})
   // res.render('add-product', {pageTitle: 'Add Product'})
@@ -265,7 +264,7 @@ const imagePath = path.join(path.dirname(process.mainModule.filename), 'public',
 
     console.log("markerImagePath: " + markerImagePath)
     THREEx.ArPatternFile.encodeImageURL(innerImageURL, function onComplete(patternFileString){
-      fs.writeFile(patternFilePath, patternFileString, (err) => {
+      fs.writeFile(path.join(path.dirname(process.mainModule.filename), 'data', 'pattern', patternFileName), patternFileString, (err) => {
           console.log(err)
       })
     })
