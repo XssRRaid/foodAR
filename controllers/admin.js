@@ -237,8 +237,8 @@ const imagePath = path.join(path.dirname(process.mainModule.filename), 'public',
   let patternFileName = imageName + '.patt';
   markerFileName = imageName + '.png';
 
-//   const patternFilePath = path.join("/", 'pattern', patternFileName);
-	const patternFilePath = path.join(path.dirname(process.mainModule.filename), 'data', 'pattern', patternFileName);
+  const patternFilePath = path.join("/", 'pattern', patternFileName);
+	// const patternFilePath = path.join(path.dirname(process.mainModule.filename), 'data', 'pattern', patternFileName);
 
 	markerImagePath = path.join("/", 'image', 'marker', markerFileName);
 
