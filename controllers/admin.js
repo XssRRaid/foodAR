@@ -228,7 +228,8 @@ console.log('asd here')
   const imageFileName = imageName + '.png'
  
 //   const imagePath = path.join("/", 'image', imageFileName)
-const imagePath = path.join(path.dirname(process.mainModule.filename), 'public', 'image', imageFileName);
+// const imagePath = path.join(path.dirname(process.mainModule.filename), 'public', 'image', imageFileName);
+const imagePath = path.join("/", 'image', modelName);
   const modelPath = path.join("/", 'model', modelName);
 
   // const imageNameOnly = title
@@ -370,8 +371,8 @@ exports.getEditProduct = (req, res, next) => {
 		let patternFileName = imageName + '.patt';
 		markerFileName = imageName + '.png';
 	
-		//   const patternFilePath = path.join("/", 'pattern', patternFileName);
-		const patternFilePath = path.join(path.dirname(process.mainModule.filename), 'data', 'pattern', patternFileName);
+		  const patternFilePath = path.join("/", 'pattern', patternFileName);
+		// const patternFilePath = path.join(path.dirname(process.mainModule.filename), 'data', 'pattern', patternFileName);
 
 		markerImagePath = path.join("/", 'image', 'marker', markerFileName);
 
