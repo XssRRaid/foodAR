@@ -111,7 +111,7 @@
                             </div>
     
                             <div class="grid justify-center justify-items-center grid-cols-[max-content_0.4fr]">
-                                <a href="/model/<%= product.id %>" target="_blank">
+                                <a href="/model/<%= product._id %>" target="_blank">
                                     <img class="flex-none h-48 overflow-hidden text-center bg-cover lg:h-auto lg:w-auto" src="<%= product.markerImagePath %>" alt="<%= product.title %>">
                                 </a>
     
@@ -176,5 +176,6 @@
 <script type="module"
 src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
 </script>
+
 </body>
 </html>
