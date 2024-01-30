@@ -4,3 +4,4 @@ package-lock.json
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+3dAR.zip
