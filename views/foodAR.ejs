@@ -57,7 +57,7 @@
     <a-assets>
     <% for (let product of products) { %>
             <a-asset-item
-                id="<%= product.id %>"
+                id="<%= product._id %>"
                 src="<%= product.modelPath %>"
             ></a-asset-item>
     <!-- <% console.log(product.id) %> -->
@@ -89,7 +89,7 @@
         <a-entity
             id="bowser-model"
             animation-mixer="loop: repeat"
-            gltf-model="#<%= product.id %>"
+            gltf-model="#<%= product._id %>"
             class="clickable"
             gesture-handler
         ></a-entity>
