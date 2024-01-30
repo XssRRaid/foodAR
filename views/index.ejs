@@ -41,16 +41,22 @@
         }
         </style>
 
+<script type="module"
+src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
+</script>
+
 </head>
 <body>
 
     <%- include('includes/navigation.ejs') %>
+    
    
     <main class="grid px-8 mx-auto gap-y-7">
         <section class="grid gap-6 md:grid-cols-3 intro">
             <div class="flex flex-col justify-center gap-5 md:col-span-2 introText">
                 <h1 class="text-lg font-semibold">Welcome To Our 3D AR Enabled Menu</h1>
-                <p class="text-justify"><b>Step 1: </b>Scan the QR code to launch the app. It will ask for Camera permission. Click on Allow to continue</p>
+                <p class="text-justify"><b>Step 1: </b>Scan the QR code to go to app page. Select the Item type (eg. Furniture, Food) to launch the app</p>
+                <p class="text-justify"><b>Step 1: </b>Select the appropriate tab from below</p>
                 <p class="text-justify"><b>Step 2: </b>Point your camera to any of the Item images shown below. This will load the 3D model for the respective item.</p>
                 <p class="text-justify"><b>Step 3: </b>You can interact with the 3d model shown to rotate, zoom in / out. </p>
             </div>
@@ -85,6 +91,7 @@
                                 </a>
     
                                 <model-viewer class="w-[100%] h-[100%]"  src="<%= product.modelPath %>" ar 
+                                    ar-modes="scene-viewer webxr quick-look"
                                     alt="A Chair" 
                                     poster="<%= product.imagePath %>"
                                     shadow-intensity="1" 
@@ -173,9 +180,7 @@
         document.getElementById("defaultOpen").click();
         </script>
 
-<script type="module"
-src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
-</script>
+
 
 </body>
 </html>
