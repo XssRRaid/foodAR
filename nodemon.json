@@ -1,0 +1,5 @@
+{
+    "env": {
+        "DB_URI": "mongodb+srv://3d-AR-User:RJ7p4sNRPsxdUAR1@cluster0.a6kahbs.mongodb.net/foodAR?retryWrites=true&w=majority"
+    }
+}

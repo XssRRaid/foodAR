@@ -50,8 +50,7 @@ app.use(multer({ storage: storage1 }).fields([
 );
 
 // DB uri
-const MONGODB_URI = 'mongodb+srv://3d-AR-User:RJ7p4sNRPsxdUAR1@cluster0.a6kahbs.mongodb.net/foodAR?retryWrites=true&w=majority'
-// 'mongodb+srv://thevagabondcoders:B2JsLpHGX0djP64V@cluster0.a6kahbs.mongodb.net/foodAR?retryWrites=true&w=majority';
+const MONGODB_URI = `${process.env.DB_URI}`
 
 const store = new MongoDBStore({
   uri: MONGODB_URI,
