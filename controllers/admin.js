@@ -112,7 +112,6 @@ THREEx.ArPatternFile.buildFullMarker =  function(innerImageURL, pattRatio, size,
 	// var canvas = document.createElement('canvas');
 	// var context = canvas.getContext('2d')
 	canvas.width = canvas.height = size
-	console.log("size2 " + size + " : " + pattRatio + " : " + innerImageURL )
 
 	canvas.width = size;
 
@@ -159,11 +158,11 @@ THREEx.ArPatternFile.buildFullMarker =  function(innerImageURL, pattRatio, size,
 
 
 	markerImagePath = path.join(path.dirname(process.mainModule.filename), 'public', 'image', 'marker', markerFileName);
-  console.log("markerImagePath1")
-  console.log(markerImagePath + " : " + innerImage.src )
+//   console.log("markerImagePath1")
+//   console.log(markerImagePath + " : " + innerImage.src )
 
 	fs.writeFileSync(markerImagePath, buffer);
-  console.log("markerImagePath3")
+  console.log("buffer: ")
   console.log(buffer)
 
 
@@ -183,7 +182,8 @@ function updateFullMarkerImage(patternRatio = 50/100, imageSize = 512, borderCol
 
 	THREEx.ArPatternFile.buildFullMarker(innerImageURL, patternRatio, imageSize, borderColor, function onComplete(markerUrl){
 		fullMarkerURL = markerUrl
-		console.log("innerImageURL" + " : " + innerImageURL )
+
+		// console.log("innerImageURL" + " : " + innerImageURL )
 
 
 	})
@@ -200,7 +200,6 @@ function updateFullMarkerImage(patternRatio = 50/100, imageSize = 512, borderCol
 
 exports.getAddProduct = (req, res, next) => {
 	// const editMode = req.query.edit;
-	console.log('no here!!')
 
   res.render("admin/add-item", {
     pageTitle: "Add Item",
@@ -246,6 +245,7 @@ const imagePath = path.join(path.dirname(process.mainModule.filename), 'public',
   identicon.generate({ id: title, size: 350 }, (err, buffer) => {
     if (err) throw err
 
+	console.log("imagePath: "+ imagePath)
     // buffer is identicon in PNG format.
     fs.writeFileSync(imagePath, buffer)
 
@@ -288,7 +288,6 @@ let foodProducts = [];
 
 	Product.find({type: "furniture"})
     .then(products => {
-      console.log(products);
       furnitures = products;
     })
     .catch(err => {
@@ -297,7 +296,6 @@ let foodProducts = [];
 
     Product.find({type: "food"})
     .then(products => {
-      console.log(products);
       foodProducts = products;
     })
     .catch(err => {
@@ -306,7 +304,6 @@ let foodProducts = [];
 
     Product.find()
     .then(products => {
-      console.log(products);
 
       res.render('admin/products', {
         products: products,
@@ -381,7 +378,7 @@ exports.getEditProduct = (req, res, next) => {
 
 			// buffer is identicon in PNG format.
 			fs.writeFileSync(imagePath, buffer)
-		console.log(prodId)
+			
 			Product.findById(prodId)
 			.then(product => {
 				product.title = title, 
