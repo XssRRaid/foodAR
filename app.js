@@ -51,8 +51,11 @@ app.use(multer({ storage: storage1 }).fields([
 
 // DB uri
 const MONGODB_URI = `${process.env.DB_URI}`
+<<<<<<< HEAD
 // const MONGODB_URI = `${process.env.DB_URI}`
 // const MONGODB_URI = "mongodb://127.0.0.1:27017/AR3D?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.1.3"
+=======
+>>>>>>> e3e0e07e0b767df6f81b00f5d0f395aea31eadba
 
 const store = new MongoDBStore({
   uri: MONGODB_URI,
