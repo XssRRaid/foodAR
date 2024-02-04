@@ -1,7 +1,7 @@
 {
     "env": {
-        "DB_URI": "mongodb+srv://3d-AR-User:RJ7p4sNRPsxdUAR1@cluster0.a6kahbs.mongodb.net/foodAR?retryWrites=true&w=majority",
-        // "DB_URI": "mongodb://127.0.0.1:27017/AR3D?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.1.3",
+        // "DB_URI": "mongodb+srv://3d-AR-User:RJ7p4sNRPsxdUAR1@cluster0.a6kahbs.mongodb.net/foodAR?retryWrites=true&w=majority",
+        "DB_URI": "mongodb://127.0.0.1:27017/AR3D?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.1.3",
         "key": "AKIA4MTWK3KL5EWSSXNY",
         "aws_secret": "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"
     }
