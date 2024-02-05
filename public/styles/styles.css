@@ -1918,6 +1918,7 @@ body {
 
 model-viewer {
   min-width: 200px;
+  min-height: 200px;
 }
 
 .hover\:border-white:hover {
