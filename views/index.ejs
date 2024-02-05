@@ -80,12 +80,12 @@ src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
                 <% if (furnitures.length > 0) { %>
         
                     <% for (let product of furnitures) { %>
-                        <div class="overflow-hidden grid">
+                        <div class="grid overflow-hidden">
                             <div class="flex flex-col justify-start pt-16 pl-4 pr-10 leading-normal">
                                 <div class="mb-2 text-xl font-bold text-center"><%= product.title %></div>
                             </div>
 
-                            <div class="grid justify-center justify-items-center grid-cols-[max-content_0.4fr]">
+                            <div class="grid justify-center justify-items-center md:grid-cols-[max-content_0.4fr]">
                                 <a href="/model/<%= product._id %>" target="_blank">
                                     <img class="flex-none h-48 overflow-hidden text-center bg-cover lg:h-auto lg:w-auto" src="<%= product.markerImagePath %>" alt="<%= product.title %>">
                                 </a>
@@ -112,12 +112,12 @@ src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
                 <% if (foodProducts.length > 0) { %>
         
                     <% for (let product of foodProducts) { %>
-                        <div class="justify-center overflow-hidden grid">
+                        <div class="grid justify-center overflow-hidden">
                             <div class="flex flex-col justify-start pt-16 pl-4 pr-10 leading-normal">
-                                <div class="mb-2 text-xl font-bold text-white text-center"><%= product.title %></div>
+                                <div class="mb-2 text-xl font-bold text-center text-white"><%= product.title %></div>
                             </div>
     
-                            <div class="grid justify-center justify-items-center grid-cols-[max-content_0.4fr]">
+                            <div class="grid justify-center justify-items-center md:grid-cols-[max-content_0.4fr]">
                                 <a href="/model/<%= product._id %>" target="_blank">
                                     <img class="flex-none h-48 overflow-hidden text-center bg-cover lg:h-auto lg:w-auto" src="<%= product.markerImagePath %>" alt="<%= product.title %>">
                                 </a>
