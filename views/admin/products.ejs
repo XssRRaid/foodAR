@@ -61,12 +61,12 @@
                 <% if (furnitures.length > 0) { %>
         
                     <% for (let product of furnitures) { %>
-                    <div class="justify-center overflow-hidden grid">
+                    <div class="grid justify-center overflow-hidden">
                         <div class="flex flex-col justify-start pt-16 pl-4 pr-10 leading-normal">
                             <div class="mb-2 text-xl font-bold text-center"><%= product.title %></div>
                         </div>
 
-                        <div class="grid justify-center justify-items-center grid-cols-[max-content_0.4fr]">
+                        <div class="grid justify-center justify-items-center md:grid-cols-[max-content_0.4fr]">
                             <a href="/model/<%= product._id %>" target="_blank">
                                 <img class="flex-none h-48 overflow-hidden text-center bg-cover lg:h-auto lg:w-auto" src="<%= product.markerImagePath %>" alt="<%= product.title %>">
                             </a>
@@ -80,12 +80,12 @@
                             </model-viewer>
                         </div>
 
-                        <div class="flex justify-evenly mt-5 gap-x-2">
-                            <a href="/admin/edit-item/<%= product._id %>?edit=true" class="btn text-primary hover:text-white w-full bg-slate-300  hover:bg-primary rounded-lg py-1 px-3 justify-center flex">Edit</a>
+                        <div class="flex mt-5 justify-evenly gap-x-2">
+                            <a href="/admin/edit-item/<%= product._id %>?edit=true" class="flex justify-center w-full px-3 py-1 rounded-lg btn text-primary hover:text-white bg-slate-300 hover:bg-primary">Edit</a>
                             <form action="/admin/delete-product" method="POST" class="w-full">
                                 <input type="hidden" value="<%= product._id %>" name="productId">
                                 <input type="hidden" value="<%= csrfToken %>" name="_csrf">
-                                <button class="btn  text-primary hover:text-white w-full bg-slate-300 rounded-lg py-1 px-3 justify-center flex hover:bg-primary" type="submit">Delete</button>
+                                <button class="flex justify-center w-full px-3 py-1 rounded-lg btn text-primary hover:text-white bg-slate-300 hover:bg-primary" type="submit">Delete</button>
                             </form>
                         </div>
                     </div>
@@ -101,12 +101,12 @@
                 <% if (foodProducts.length > 0) { %>
         
                     <% for (let product of foodProducts) { %>
-                        <div class="justify-center overflow-hidden grid">
+                        <div class="grid justify-center overflow-hidden">
                             <div class="flex flex-col justify-start pt-16 pl-4 pr-10 leading-normal">
                                 <div class="mb-2 text-xl font-bold text-center"><%= product.title %></div>
                             </div>
     
-                            <div class="grid justify-center justify-items-center grid-cols-[max-content_0.4fr]">
+                            <div class="grid justify-center justify-items-center md:grid-cols-[max-content_0.4fr]">
                                 <a href="/model/<%= product._id %>" target="_blank">
                                     <img class="flex-none h-48 overflow-hidden text-center bg-cover lg:h-auto lg:w-auto" src="<%= product.markerImagePath %>" alt="<%= product.title %>">
                                 </a>
@@ -120,12 +120,12 @@
                                 </model-viewer>
                             </div>
     
-                            <div class="flex justify-evenly mt-5 gap-x-2">
-                                <a href="/admin/edit-item/<%= product._id %>?edit=true" class="btn text-primary hover:text-white w-full bg-slate-300  hover:bg-primary rounded-lg py-1 px-3 justify-center flex">Edit</a>
+                            <div class="flex mt-5 justify-evenly gap-x-2">
+                                <a href="/admin/edit-item/<%= product._id %>?edit=true" class="flex justify-center w-full px-3 py-1 rounded-lg btn text-primary hover:text-white bg-slate-300 hover:bg-primary">Edit</a>
                                 <form action="/admin/delete-product" method="POST" class="w-full">
                                     <input type="hidden" value="<%= product._id %>" name="productId">
                                     <input type="hidden" value="<%= csrfToken %>" name="_csrf">
-                                    <button class="btn  text-primary hover:text-white w-full bg-slate-300 rounded-lg py-1 px-3 justify-center flex hover:bg-primary" type="submit">Delete</button>
+                                    <button class="flex justify-center w-full px-3 py-1 rounded-lg btn text-primary hover:text-white bg-slate-300 hover:bg-primary" type="submit">Delete</button>
                                 </form>
                             </div>
                         </div>
