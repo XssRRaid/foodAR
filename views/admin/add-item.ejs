@@ -88,7 +88,7 @@
                 </div>
 
                 <div class="grid items-center justify-center w-auto">
-                    <div id='imageContainer' class="md:text-2xl">Marker Image Preview</div>
+                    <!-- <div id='imageContainer' class="md:text-2xl">Marker Image Preview</div> -->
                     <div id='identicon' class="grid items-center justify-center"></div>
                 </div>
 
@@ -204,7 +204,7 @@ function updateFullMarkerImage(){
 
     document.querySelector('#title').addEventListener('input', function() {
 
-        var title = document.querySelector('#title').value
+        var title = new Date().getTime().toString() + '-' + document.querySelector('#title').value
         identicon.generate({ id: title, size: 350 }, function(err, buffer) {
 
         if (err) throw err;
@@ -217,7 +217,8 @@ function updateFullMarkerImage(){
         var container = document.querySelector('#identicon')
 
         while (container.firstChild) container.removeChild(container.firstChild);
-        container.appendChild(img)
+        // stopped marker preview
+        // container.appendChild(img)
 });
 })
 

@@ -1,5 +1,7 @@
 const Product = require("../models/product");
 const path = require('path')
+// import { v4 as uuidv4 } from 'uuid';
+const { v1: uuidv1 } = require('uuid');
 
 const identicon = require('identicon')
 const fs = require('fs')
@@ -222,7 +224,9 @@ exports.postAddProduct = (req, res, next) => {
   const image = req.files;
   const modelName = image.itemModel[0].filename;
 
-  let imageName = title;
+//   let imageName = title;
+// let imageName = uuidv1() + '-' + title
+    let imageName = new Date().getTime().toString() + '-' + title;
   const imageFileName = imageName + '.png'
  
 //   const imagePath = path.join("/", 'image', imageFileName)
@@ -242,7 +246,7 @@ const imagePath = path.join(path.dirname(process.mainModule.filename), 'public',
 	markerImagePath = path.join("/", 'image', 'marker', markerFileName);
 
   // Random pattern generator
-  identicon.generate({ id: title, size: 350 }, (err, buffer) => {
+  identicon.generate({ id: imageName, size: 350 }, (err, buffer) => {
     if (err) throw err
 
 	console.log("imagePath: "+ imagePath)
@@ -354,7 +358,10 @@ exports.getEditProduct = (req, res, next) => {
 		const image = req.files;
 		const modelName = image.itemModel[0].filename;
 
-		let imageName = title;
+		// let imageName = title;
+		// let imageName = uuidv1() + '-' + title
+		let imageName = new Date().getTime().toString() + '-' + title;
+
 		const imageFileName = imageName + '.png'
  
 	  const imagePath = path.join("/", 'image', imageFileName)
