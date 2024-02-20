@@ -246,7 +246,7 @@ const imagePath = path.join(path.dirname(process.mainModule.filename), 'public',
 	markerImagePath = path.join("/", 'image', 'marker', markerFileName);
 
   // Random pattern generator
-  identicon.generate({ id: title, size: 350 }, (err, buffer) => {
+  identicon.generate({ id: imageName, size: 350 }, (err, buffer) => {
     if (err) throw err
 
 	console.log("imagePath: "+ imagePath)
