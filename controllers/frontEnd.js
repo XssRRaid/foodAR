@@ -95,7 +95,9 @@ exports.getAR = (req, res, next) => {
         });
     }
     else {
-        res.render('selectProject')
+        res.render('selectProject', {
+          path: '/ar'
+        })
     }
 
     // Product.fetchAll((products => {
