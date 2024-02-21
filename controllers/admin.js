@@ -1,7 +1,7 @@
 const Product = require("../models/product");
 const path = require('path')
 // import { v4 as uuidv4 } from 'uuid';
-const { v1: uuidv1 } = require('uuid');
+const { stringify : uuidStringify} = require('uuid');
 
 const identicon = require('identicon')
 const fs = require('fs')
@@ -225,8 +225,11 @@ exports.postAddProduct = (req, res, next) => {
   const modelName = image.itemModel[0].filename;
 
 //   let imageName = title;
-// let imageName = uuidv1() + '-' + title
-    let imageName = new Date().getTime().toString() + '-' + title;
+const uuidBytes = [
+	0x6e, 0xc0, 0xbd, 0x7f, 0x11, 0xc0, 0x43, 0xda, 0x97, 0x5e, 0x2a, 0x8a, 0xd9, 0xeb, 0xae, 0x0b,
+  ];
+let imageName = uuidStringify(uuidBytes)
+    // let imageName = new Date().getTime().toString() + '-' + title;
   const imageFileName = imageName + '.png'
  
 //   const imagePath = path.join("/", 'image', imageFileName)
@@ -268,6 +271,7 @@ const imagePath = path.join(path.dirname(process.mainModule.filename), 'public',
     product.save();
 
     console.log("markerImagePath: " + markerImagePath)
+	console
     THREEx.ArPatternFile.encodeImageURL(innerImageURL, function onComplete(patternFileString){
       fs.writeFile(path.join(path.dirname(process.mainModule.filename), 'data', 'pattern', patternFileName), patternFileString, (err) => {
           console.log(err)
