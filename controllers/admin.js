@@ -1,6 +1,6 @@
 const Product = require("../models/product");
 const path = require('path')
-// import { v4 as uuidv4 } from 'uuid';
+const { v4 : uuidv4 } = require('uuid');
 const { stringify : uuidStringify} = require('uuid');
 
 const identicon = require('identicon')
@@ -225,10 +225,10 @@ exports.postAddProduct = (req, res, next) => {
   const modelName = image.itemModel[0].filename;
 
 //   let imageName = title;
-const uuidBytes = [
-	0x6e, 0xc0, 0xbd, 0x7f, 0x11, 0xc0, 0x43, 0xda, 0x97, 0x5e, 0x2a, 0x8a, 0xd9, 0xeb, 0xae, 0x0b,
-  ];
-let imageName = uuidStringify(uuidBytes)
+// const uuidBytes = [
+// 	0x6e, 0xc0, 0xbd, 0x7f, 0x11, 0xc0, 0x43, 0xda, 0x97, 0x5e, 0x2a, 0x8a, 0xd9, 0xeb, 0xae, 0x0b,
+//   ];
+let imageName = uuidv4().toString()
     // let imageName = new Date().getTime().toString() + '-' + title;
   const imageFileName = imageName + '.png'
  
