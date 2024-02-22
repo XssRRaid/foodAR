@@ -102,14 +102,15 @@ app.use('/admin', adminRoutes);
 app.use(authRoutes);
 
 // app.use('/food-ar', frontEndController.getAR)
+app.use('/ar/test', frontEndController.getARtest)
 
 app.use('/ar/:type', frontEndController.getAR)
-
 app.use('/ar/', frontEndController.getAR)
 
 app.get('/', frontEndController.getIndex)
 
 app.get('/model/:id', frontEndController.getModel)
+
 app.get('/model/', frontEndController.getModel)
 
 app.use(errorController.get404);

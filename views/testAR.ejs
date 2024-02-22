@@ -9,74 +9,65 @@
     <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-detector.js"></script>
     <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-handler.js"></script>
     
-    <title>Food Menu AR</title>
+    <title>Loading AR..</title>
+
+    <!-- Loading Screen Styles -->
+    <style>
+        .arjs-loader {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.8);
+        z-index: 9999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        }
+    
+        .arjs-loader div {
+        text-align: center;
+        font-size: 1.25em;
+        color: white;
+        }
+
+        .a-loader-title {
+   color: red;
+ }
+    </style>
 </head>
+
 <body>
-    <a-scene
-    vr-mode-ui="enabled: false;"
-    loading-screen="enabled: false;"
-    renderer="logarithmicDepthBuffer: true;"
-    arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;"
-    id="scene"
-    embedded
-    gesture-detector
->
 
+      <!-- Minimal Loader Description until the assets are loaded -->
+  <!-- <div class="arjs-loader">
+    <div>Loading, please wait...</div>
+  </div> -->
+  
+  <a-scene arjs='detectionMode: mono_and_matrix; matrixCodeType: 3x3;'></a-scene>
+    <a-assets>
     <% for (let product of products) { %>
-        <!-- <article class="card product-item">
-            <header class="card__header">
-                <h1 class="product__title"><%= product.title %></h1>
-            </header>
-            <div class="card__image">
-                <img src="<%= product.markerImagePath %>"
-                    alt="<%= product.title %>">
-                    <p>Marker Path<%= product.markerImagePath %></p>
-            </div>
-            <div class="card__content">
-                <p>Pattern File Path<%= product.patternFilePath %></p>
-            </div>
-            <div class="card__actions">
-                <p>Model File Path<%= product.modelPath %></p>
-            </div>
-        </article> -->
-
-
-    <!-- <a-assets>
-        <a-asset-item
-            id="<%= product.id %>"
-            src="assets/table/Table_Web_Glb/Table.glb"
-        ></a-asset-item>
+            <a-asset-item
+                id="<%= product._id %>"
+                src="<%= product.modelPath %>"
+            ></a-asset-item>
+    <!-- <% console.log(product.id) %> -->
+    
+    <% } %>
     </a-assets>
 
-    <a-marker
-        id="<%= product.id %>"
-        type="pattern"
-        preset="custom"
-        url="assets/pattern/pattern-marker.patt"
-        raycaster="objects: .clickable"
-        emitevents="true"
-        cursor="fuse: false; rayOrigin: mouse;"
-        id="markerA"
-    >
-        <a-entity
-            id="bowser-model"
-            scale="0.3824031874339614 0.3824031874339614 0.3824031874339614"
-            animation-mixer="loop: repeat"
-            gltf-model="#animated-asset"
-            class="clickable"
-            gesture-handler
-        ></a-entity>
-    </a-marker> -->
 
-    <a-assets>
+    <% for (let product of products) { %>
+    <!-- <a-assets>
         <a-asset-item
             id="<%= product.id %>"
             src="<%= product.modelPath %>"
         ></a-asset-item>
-    </a-assets>
-
-    <a-marker
-        id="animated-marker"
+    </a-assets> -->
+    <a-marker type='barcode' value='1'>
+    <!-- <a-marker
+        id="<%= product.title %>"
         type="pattern"
         preset="custom"
         url="<%= product.patternFilePath %>"
@@ -84,20 +75,23 @@
         emitevents="true"
         cursor="fuse: false; rayOrigin: mouse;"
         id="markerA"
-    >
+    > -->
+    <a-sky color="teal" opacity="0.7"></a-sky>
+
         <a-entity
             id="bowser-model"
-            position="0.95 0.4 0"
             animation-mixer="loop: repeat"
-            gltf-model="#<%= product.id %>"
+            gltf-model="#<%= product._id %>"
             class="clickable"
             gesture-handler
+            position='0 0.5 0'
         ></a-entity>
+
     </a-marker>
-        <% console.log(product.patternFilePath) %>
+        <!-- <% console.log(product.id) %> -->
 
     <% } %>
-
+    <!-- <a-sky color="#222"></a-sky> -->
     <a-entity camera></a-entity>
 </a-scene>
 </body>

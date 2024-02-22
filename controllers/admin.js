@@ -38,12 +38,13 @@ let markerImagePath = '';
 
 THREEx.ArPatternFile.encodeImageURL = function(imageURL, onComplete){
 	var image = new Canvas.Image;
+
 	image.onload = function(){
 		var patternFileString = THREEx.ArPatternFile.encodeImage(image)
 		onComplete(patternFileString)
 	}
-
 	image.src = imageURL;
+
 }
 
 THREEx.ArPatternFile.encodeImage = function(image){
@@ -60,6 +61,9 @@ THREEx.ArPatternFile.encodeImage = function(image){
 
 		// get imageData
 		var imageData = context.getImageData(0, 0, canvas.width, canvas.height)
+		context.clearRect(0,0,canvas.width,canvas.height);
+		context.beginPath();
+		console.log('imageData: ' + imageData)
 
 		// generate the patternFileString for this orientation
 		if( orientation !== 0 )	patternFileString += '\n'
@@ -80,6 +84,7 @@ THREEx.ArPatternFile.encodeImage = function(image){
 			}
 		}
 	}
+	// console.log('patternFileString: ' + patternFileString)
 
 	return patternFileString
 }
@@ -228,8 +233,9 @@ exports.postAddProduct = (req, res, next) => {
 // const uuidBytes = [
 // 	0x6e, 0xc0, 0xbd, 0x7f, 0x11, 0xc0, 0x43, 0xda, 0x97, 0x5e, 0x2a, 0x8a, 0xd9, 0xeb, 0xae, 0x0b,
 //   ];
-let imageName = uuidv4().toString() + '-' + title;
-    // let imageName = new Date().getTime().toString() + '-' + title;
+const imageName = uuidv4().toString() + '-' + title;
+// let imageName = modelName;
+	// const imageName = new Date().getTime().toString() + '-' + title;
   const imageFileName = imageName + '.png'
  
 //   const imagePath = path.join("/", 'image', imageFileName)
@@ -239,6 +245,8 @@ const imagePath = path.join(path.dirname(process.mainModule.filename), 'public',
 
   // const imageNameOnly = title
   innerImageURL = imagePath;
+// innerImageURL = path.join("/", 'image', imageFileName);
+
 
   let patternFileName = imageName + '.patt';
   markerFileName = imageName + '.png';
@@ -252,7 +260,7 @@ const imagePath = path.join(path.dirname(process.mainModule.filename), 'public',
   identicon.generate({ id: imageName, size: 350 }, (err, buffer) => {
     if (err) throw err
 
-	console.log("imagePath: "+ imagePath)
+	console.log("imagePath is: "+ imagePath)
     // buffer is identicon in PNG format.
     fs.writeFileSync(imagePath, buffer)
 
@@ -271,17 +279,17 @@ const imagePath = path.join(path.dirname(process.mainModule.filename), 'public',
     product.save();
 
     console.log("markerImagePath: " + markerImagePath)
-	console
+    console.log("innerImageURL is: " + innerImageURL)
+
+
     THREEx.ArPatternFile.encodeImageURL(innerImageURL, function onComplete(patternFileString){
       fs.writeFile(path.join(path.dirname(process.mainModule.filename), 'data', 'pattern', patternFileName), patternFileString, (err) => {
           console.log(err)
       })
     })
 
-  updateFullMarkerImage(patternRatio, imageSize, borderColor)
-
-    
-        // innerImageURL = '/image/inner-arjs.png'
+	// innerImageURL = '/image/inner-arjs.png'
+	updateFullMarkerImage(patternRatio, imageSize, borderColor)
 
     res.redirect("/admin/products");
   });
@@ -312,14 +320,12 @@ let foodProducts = [];
 
     Product.find()
     .then(products => {
-
       res.render('admin/products', {
         products: products,
         furnitures: furnitures,
         foodProducts: foodProducts,
         pageTitle: 'Admin Products',
         path: '/admin/products',
-		isAuthenticated: req.session.isLoggedIn
       });
     })
     .catch(err => {

@@ -46,6 +46,8 @@ exports.getModel = (req, res, next) => {
      // Retrieve the tag from our URL path
      const prodId = req.params.id;
 
+     console.log("prod id is: " + req.params)
+
      Product.findById(prodId)
      .then(product => {
         productData = product
@@ -109,4 +111,29 @@ exports.getAR = (req, res, next) => {
     //     //   });
         
     // }));   
+};
+
+exports.getARtest = (req, res, next) => {
+    
+  Product.find({type: "furniture"})
+  .then(products => {
+      res.render('testAR', {
+          products: products,
+          pageTitle: 'Furniture Menu AR',
+          path: '/ar/test'
+        });
+  })
+  .catch(err => {
+    console.log(err);
+  });
+
+  // Product.fetchAll((products => {
+  //     // console.log(products)
+  //     // res.render('foodAR', {
+  //     //     products: products,
+  //     //     pageTitle: 'Food Menu AR',
+  //     //     path: '/food-ar',
+  //     //   });
+      
+  // }));   
 };
