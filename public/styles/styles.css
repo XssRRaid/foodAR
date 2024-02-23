@@ -2034,6 +2034,10 @@ model-viewer {
     height: 40vh;
   }
 
+  .lg\:h-\[45px\] {
+    height: 45px;
+  }
+
   .lg\:w-auto {
     width: auto;
   }

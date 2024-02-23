@@ -64,16 +64,16 @@
         
                     <% for (let product of furnitures) { %>
                     <div class="grid justify-center overflow-hidden">
-                        <div class="flex flex-col justify-start pt-16 pl-4 pr-10 leading-normal">
+                        <div class="flex flex-col justify-start pl-4 pr-10 leading-normal">
                             <div class="mb-2 text-xl font-bold text-center"><%= product.title %></div>
                         </div>
 
-                        <div class="grid justify-center justify-items-center md:grid-cols-[max-content_0.4fr]">
+                        <div class="grid justify-center justify-items-center md:grid-cols-[max-content_auto]">
                             <a href="/model/<%= product._id %>" target="_blank">
-                                <img class="flex-none h-48 overflow-hidden text-center bg-cover lg:h-auto lg:w-[30vw]" src="/image/marker/<%= i %>.png" alt="<%= product.title %>">
+                                <img class="flex-none h-48 overflow-hidden text-center bg-cover lg:h-[40px]" src="/image/marker/<%= i %>.png" alt="<%= product.title %>">
                             </a>
 
-                            <model-viewer class="w-[100%] h-[100%]"  src="<%= product.modelPath %>" ar 
+                            <model-viewer class="lg:h-[40vh]"  src="<%= product.modelPath %>" ar 
                                 alt="A Chair" 
                                 poster="<%= product.imagePath %>"
                                 shadow-intensity="1" 
@@ -106,16 +106,16 @@
         
                     <% for (let product of foodProducts) { %>
                         <div class="grid justify-center overflow-hidden">
-                            <div class="flex flex-col justify-start pt-16 pl-4 pr-10 leading-normal">
+                            <div class="flex flex-col justify-start pl-4 pr-10 leading-normal">
                                 <div class="mb-2 text-xl font-bold text-center"><%= product.title %></div>
                             </div>
     
-                            <div class="grid justify-center justify-items-center md:grid-cols-[max-content_0.4fr]">
+                            <div class="grid justify-center justify-items-center md:grid-cols-[max-content_auto]">
                                 <a href="/model/<%= product._id %>" target="_blank">
-                                    <img class="flex-none h-48 overflow-hidden text-center bg-cover lg:h-auto lg:w-[30w]" src="/image/marker/<%= i %>.png" alt="<%= product.title %>">
+                                    <img class="flex-none h-48 overflow-hidden text-center bg-cover lg:h-[45px]" src="/image/marker/<%= i %>.png" alt="<%= product.title %>">
                                 </a>
     
-                                <model-viewer class="w-[100%] h-[100%]"  src="<%= product.modelPath %>" ar 
+                                <model-viewer class="lg:h-[40vh]"  src="<%= product.modelPath %>" ar 
                                     alt="A Chair" 
                                     poster="<%= product.imagePath %>"
                                     shadow-intensity="1" 
