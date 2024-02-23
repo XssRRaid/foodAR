@@ -103,32 +103,13 @@
     
     </script>
 
+<a-scene embedded arjs='sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
 
-<a-scene
-    vr-mode-ui="enabled: false;"
-    loading-screen="enabled: true; dotsColor: red; backgroundColor: black"
-    renderer="logarithmicDepthBuffer: true;"
-    arjs='sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;'
-    id="scene"
-    embedded
-    gesture-detector
->
     <a-assets>
         <a-asset-item id="animated-asset" src="https://raw.githubusercontent.com/nicolocarpignoli/nicolocarpignoli.github.io/master/ar-playground/models/CesiumMan.gltf"></a-asset-item>
     </a-assets>
 
-    <a-assets>
-        <% for (let product of products) { %>
-                <a-asset-item
-                    id="<%= product._id %>"
-                    src="<%= product.modelPath %>"
-                ></a-asset-item>
-        <!-- <% console.log(product.id) %> -->
-        
-        <% } %>
-    </a-assets>
-
-    <a-marker type='barcode' value='1'>
+    <a-marker type='barcode' value='7'>
         <a-box position='0 0.5 0' color="yellow"></a-box>
     </a-marker>
 
@@ -138,26 +119,6 @@
             scale="2">
         </a-entity>
     </a-marker>
-
-    <% for (let product of products) { %>
-    <a-marker
-        id="<%= product.title %>"
-        type='barcode' 
-        value='7'
-        raycaster="objects: .clickable"
-        emitevents="true"
-        cursor="fuse: false; rayOrigin: mouse;"
-    >
-        <a-sky color="teal" opacity="0.7"></a-sky>
-        <a-entity
-            animation-mixer="loop: repeat"
-            gltf-model="#<%= product._id %>"
-            class="clickable"
-            gesture-handler
-            position='0 0.5 0'
-        ></a-entity>
-    </a-marker>
-    <% } %>
 
     <!-- use this <a-entity camera> to support multiple-markers, otherwise use <a-marker-camera> instead of </a-marker> -->
     <a-entity camera></a-entity>
