@@ -21,23 +21,18 @@ const productSchema = new Schema({
   },
   patternRatio: {
     type: String,
-    required: true
   },
   imageSize: {
     type: String,
-    required: true
   },
   borderColor: {
     type: String,
-    required: true
   },
   patternFilePath: {
     type: String,
-    required: true
   },
   markerImagePath: {
     type: String,
-    required: true
   }
 });
 
