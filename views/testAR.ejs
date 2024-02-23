@@ -45,70 +45,11 @@
     <div>Loading, please wait...</div>
   </div> -->
 
-  <script>
-
-    // store visibility data in object;
-    //  can only draw line when both are visible.
-    let markerVisible = { m0: false, m1: false };
-    
-    AFRAME.registerComponent('registerevents', {
-        init: function () 
-        {
-            let marker = this.el;
-            
-            marker.addEventListener('markerFound', function() {
-                markerVisible[ marker.id ] = true;
-            });
-    
-            marker.addEventListener('markerLost', function() {
-                markerVisible[ marker.id ] = false;
-            });
-        }
-    });
-    
-    AFRAME.registerComponent('run', {
-        init: function()
-        {
-            this.m0 = document.querySelector("#m0");
-            this.m1 = document.querySelector("#m1");
-            this.p0 = new THREE.Vector3();
-            this.p1 = new THREE.Vector3(); 
-            
-            this.geometry = new THREE.Geometry();
-            this.geometry.vertices.push( new THREE.Vector3(-1,-1,-1) );
-            this.geometry.vertices.push( new THREE.Vector3( 1, 1, 1) );
-            this.material = new THREE.LineBasicMaterial( {color: 0xFF0000} );
-            this.line = new THREE.Line( this.geometry, this.material );
-            let scene = document.querySelector('a-scene').object3D;
-            scene.add( this.line );
-        },
-        
-        tick: function (time, deltaTime) 
-        {
-            if ( markerVisible["m0"] && markerVisible["m1"] )
-            {
-                this.m0.object3D.getWorldPosition(this.p0);
-                this.m1.object3D.getWorldPosition(this.p1);
-                this.geometry.vertices[0] = this.p0;
-                this.geometry.vertices[1] = this.p1;
-                this.geometry.verticesNeedUpdate = true;
-                this.line.visible = true;
-            }
-            else
-            {
-                this.line.visible = false;
-            }
-        }
-    });
-    
-    </script>
-
-
 <a-scene
     vr-mode-ui="enabled: false;"
     loading-screen="enabled: true; dotsColor: red; backgroundColor: black"
     renderer="logarithmicDepthBuffer: true;"
-    arjs='sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;'
+    arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;"
     id="scene"
     embedded
     gesture-detector
@@ -128,7 +69,7 @@
         <% } %>
     </a-assets>
 
-    <a-marker type='barcode' value='1'>
+    <!-- <a-marker type='barcode' value='1'>
         <a-box position='0 0.5 0' color="yellow"></a-box>
     </a-marker>
 
@@ -137,13 +78,15 @@
             gltf-model="#animated-asset"
             scale="2">
         </a-entity>
-    </a-marker>
+    </a-marker> -->
 
+    <% let i = 0 %>
     <% for (let product of products) { %>
+        <% i += 1 %>
     <a-marker
         id="<%= product.title %>"
-        type='barcode' 
-        value='7'
+        type="barcode"
+        value=" <%= i %>"
         raycaster="objects: .clickable"
         emitevents="true"
         cursor="fuse: false; rayOrigin: mouse;"
@@ -158,7 +101,7 @@
         ></a-entity>
     </a-marker>
     <% } %>
-
+    <% i = 0 %>
     <!-- use this <a-entity camera> to support multiple-markers, otherwise use <a-marker-camera> instead of </a-marker> -->
     <a-entity camera></a-entity>
     </a-scene>
