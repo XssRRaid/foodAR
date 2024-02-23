@@ -1179,10 +1179,6 @@ select {
   grid-template-columns: repeat(6, minmax(0, 1fr));
 }
 
-.grid-cols-\[max-content_0\.4fr\] {
-  grid-template-columns: max-content 0.4fr;
-}
-
 .grid-cols-\[max-content_max-content_1fr\] {
   grid-template-columns: max-content max-content 1fr;
 }
@@ -2004,6 +2000,10 @@ model-viewer {
 
   .lg\:w-auto {
     width: auto;
+  }
+
+  .lg\:w-\[40vw\] {
+    width: 40vw;
   }
 
   .lg\:items-center {

@@ -77,9 +77,9 @@ src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
             
             <div id="Furniture" class="tabcontent rounded-b-md">
                 <section class="grid my-10 foodMenu gap-y-20">
+                <% let i = 0 %>
                 <% if (furnitures.length > 0) { %>
         
-                    <% let i = 0 %>
                     <% for (let product of furnitures) { %>
                         <div class="grid overflow-hidden">
                             <div class="flex flex-col justify-start pt-16 pl-4 pr-10 leading-normal">
@@ -88,7 +88,7 @@ src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
 
                             <div class="grid justify-center justify-items-center md:grid-cols-[max-content_0.4fr]">
                                 <a href="/model/<%= product._id %>" target="_blank">
-                                    <img class="flex-none h-48 overflow-hidden text-center bg-cover lg:h-auto lg:w-auto" src="/image/marker/<%= i %>.png" alt="<%= product.title %>">
+                                    <img class="flex-none h-48 overflow-hidden text-center bg-cover lg:h-auto lg:w-[40vw]" src="/image/marker/<%= i %>.png" alt="<%= product.title %>">
                                 </a>
     
                                 <model-viewer class="w-[100%] h-[100%]"  src="<%= product.modelPath %>" ar 
