@@ -56,9 +56,9 @@ src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
             <div class="flex flex-col justify-center gap-5 md:col-span-2 introText">
                 <h1 class="text-lg font-semibold">Welcome To Our 3D AR Enabled Menu</h1>
                 <p class="text-justify"><b>Step 1: </b>Scan the QR code to go to app page. Select the Item type (eg. Furniture, Food) to launch the app</p>
-                <p class="text-justify"><b>Step 1: </b>Select the appropriate tab from below</p>
-                <p class="text-justify"><b>Step 2: </b>Point your camera to any of the Item images shown below. This will load the 3D model for the respective item.</p>
-                <p class="text-justify"><b>Step 3: </b>You can interact with the 3d model shown to rotate, zoom in / out. </p>
+                <p class="text-justify"><b>Step 2: </b>Select the appropriate tab from below</p>
+                <p class="text-justify"><b>Step 3: </b>Point your camera to any of the Item images shown below. This will load the 3D model for the respective item.</p>
+                <p class="text-justify"><b>Step 4: </b>You can interact with the 3d model shown to rotate, zoom in / out. </p>
             </div>
 
             <div class="flex items-center justify-center appQR md:justify-end">
@@ -88,7 +88,7 @@ src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
 
                             <div class="grid justify-center items-center justify-items-center md:grid-cols-[max-content_auto]">
                                 <a href="/model/<%= product._id %>" target="_blank">
-                                    <img class="flex-none h-48 overflow-hidden text-center bg-cover h-[40px]" src="/image/marker/<%= i %>.png" alt="<%= product.title %>">
+                                    <img class="flex-none overflow-hidden text-center bg-cover h-[auto]" src="/image/marker/<%= i %>.png" alt="<%= product.title %>">
                                 </a>
     
                                 <model-viewer class="lg:h-[40vw]"  src="<%= product.modelPath %>" ar 
@@ -122,7 +122,7 @@ src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
     
                             <div class="grid justify-center justify-items-center md:grid-cols-[max-content_auto]">
                                 <a href="/model/<%= product._id %>" target="_blank">
-                                    <img class="flex-none h-48 overflow-hidden text-center bg-cover lg:h-[40px]" src="/image/marker/<%= i %>.png" alt="<%= product.title %>">
+                                    <img class="flex-none h-48 overflow-hidden text-center bg-cover lg:h-[auto]" src="/image/marker/<%= i %>.png" alt="<%= product.title %>">
                                 </a>
     
                                 <model-viewer class="lg:h-[40vh]"  src="<%= product.modelPath %>" ar 

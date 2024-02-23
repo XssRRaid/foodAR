@@ -1032,6 +1032,10 @@ select {
   height: 40px;
 }
 
+.h-\[auto\] {
+  height: auto;
+}
+
 .w-1 {
   width: 0.25rem;
 }
@@ -2036,6 +2040,10 @@ model-viewer {
 
   .lg\:h-\[45px\] {
     height: 45px;
+  }
+
+  .lg\:h-\[auto\] {
+    height: auto;
   }
 
   .lg\:w-auto {
