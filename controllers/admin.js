@@ -400,12 +400,7 @@ exports.getEditProduct = (req, res, next) => {
 				product.title = title, 
 				product.type = type,
 				product.imagePath = imagePath, 
-				product.modelPath = modelPath,
-				product.patternRatio = patternRatio,
-				product.imageSize =imageSize,
-				product.borderColor = borderColor,
-				product.patternFilePath = patternFilePath,
-				product.markerImagePath = markerImagePath
+				product.modelPath = modelPath
 				return product.save();
 			})
 			.then(result => {
