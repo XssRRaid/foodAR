@@ -7,21 +7,24 @@
    <%- include('../includes/navigation.ejs') %>
 
     <main>
-        <form class="login-form" action="/signup" method="POST">
-            <div class="form-control">
-                <label for="username">Username</label>
-                <input type="text" name="username" id="username">
-            </div>
-            <div class="form-control">
-                <label for="password">Password</label>
-                <input type="password" name="password" id="password">
-            </div>
-            <div class="form-control">
-                <label for="confirmPassword">Confirm Password</label>
-                <input type="password" name="confirmPassword" id="confirmPassword">
-            </div>
-            <input type="hidden" value="<%= csrfToken %>" name="_csrf">
-            <button class="btn" type="submit">Register</button>
-        </form>
+        <div class="grid items-center justify-center p-8 mb-4">
+            <form class="grid p-8 text-white rounded-lg w-max login-form gap-y-8 bg-primary" action="/signup" method="POST">
+                <div class="form-control">
+                    <label for="username">Username</label>
+                    <input class="text-gray-500" type="text" name="username" id="username">
+                </div>
+                <div class="form-control">
+                    <label for="password">Password</label>
+                    <input class="text-gray-500"  type="password" name="password" id="password">
+                </div>
+                <div class="form-control">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input class="text-gray-500"  type="password" name="confirmPassword" id="confirmPassword">
+                </div>
+                <input type="hidden" value="<%= csrfToken %>" name="_csrf">
+                <button class="px-5 py-1 text-gray-500 transition-all border-2 rounded-md justify-self-center w-max bg-zinc-200 hover:bg-zinc-50 button hover:text-gray-800" type="submit">Register</button>
+            </form>
+        </div>
+
     </main>
 </body>
