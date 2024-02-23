@@ -44,58 +44,86 @@
   <!-- <div class="arjs-loader">
     <div>Loading, please wait...</div>
   </div> -->
-  
-  <a-scene embedded vr-mode-ui="enabled: false;" arjs="debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;">
-    <a-assets>
-    <% for (let product of products) { %>
-            <a-asset-item
-                id="<%= product._id %>"
-                src="<%= product.modelPath %>"
-            ></a-asset-item>
-    <!-- <% console.log(product.id) %> -->
+
+  <script>
+
+    // store visibility data in object;
+    //  can only draw line when both are visible.
+    let markerVisible = { m0: false, m1: false };
     
-    <% } %>
-    </a-assets>
+    AFRAME.registerComponent('registerevents', {
+        init: function () 
+        {
+            let marker = this.el;
+            
+            marker.addEventListener('markerFound', function() {
+                markerVisible[ marker.id ] = true;
+            });
+    
+            marker.addEventListener('markerLost', function() {
+                markerVisible[ marker.id ] = false;
+            });
+        }
+    });
+    
+    AFRAME.registerComponent('run', {
+        init: function()
+        {
+            this.m0 = document.querySelector("#m0");
+            this.m1 = document.querySelector("#m1");
+            this.p0 = new THREE.Vector3();
+            this.p1 = new THREE.Vector3(); 
+            
+            this.geometry = new THREE.Geometry();
+            this.geometry.vertices.push( new THREE.Vector3(-1,-1,-1) );
+            this.geometry.vertices.push( new THREE.Vector3( 1, 1, 1) );
+            this.material = new THREE.LineBasicMaterial( {color: 0xFF0000} );
+            this.line = new THREE.Line( this.geometry, this.material );
+            let scene = document.querySelector('a-scene').object3D;
+            scene.add( this.line );
+        },
+        
+        tick: function (time, deltaTime) 
+        {
+            if ( markerVisible["m0"] && markerVisible["m1"] )
+            {
+                this.m0.object3D.getWorldPosition(this.p0);
+                this.m1.object3D.getWorldPosition(this.p1);
+                this.geometry.vertices[0] = this.p0;
+                this.geometry.vertices[1] = this.p1;
+                this.geometry.verticesNeedUpdate = true;
+                this.line.visible = true;
+            }
+            else
+            {
+                this.line.visible = false;
+            }
+        }
+    });
+    
+    </script>
 
-    <a-marker value="0" preset="area">
-        <a-sphere material="color: blue; opacity: 0.5" radius="0.25"></a-sphere>
+  <a-scene embedded vr-mode-ui="enabled: false;" arjs="debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;">
+
+    <a-marker type="barcode" value="0" id="m0" registerevents>
+        <a-plane position="0 0 0" 
+                 rotation="-90 0 0"
+                 material="color: white; transparent: true; opacity: 0.10;">
+        </a-plane>
     </a-marker>
 
-    <% for (let product of products) { %>
-    <!-- <a-assets>
-        <a-asset-item
-            id="<%= product.id %>"
-            src="<%= product.modelPath %>"
-        ></a-asset-item>
-    </a-assets> -->
-    <a-marker type='barcode' value='1'>
-    <!-- <a-marker
-        id="<%= product.title %>"
-        type="pattern"
-        preset="custom"
-        url="<%= product.patternFilePath %>"
-        raycaster="objects: .clickable"
-        emitevents="true"
-        cursor="fuse: false; rayOrigin: mouse;"
-        id="markerA"
-    > -->
-    <a-sky color="teal" opacity="0.7"></a-sky>
-
-        <a-entity
-            id="bowser-model"
-            animation-mixer="loop: repeat"
-            gltf-model="#<%= product._id %>"
-            class="clickable"
-            gesture-handler
-            position='0 0.5 0'
-        ></a-entity>
-
+    <a-marker type="barcode" value="1" id="m1" registerevents>
+        <a-plane position="0 0 0" 
+                 rotation="-90 0 0"
+                 material="color: white; transparent: true; opacity: 0.10;">
+        </a-plane>
     </a-marker>
-        <!-- <% console.log(product.id) %> -->
+    
 
-    <% } %>
-    <!-- <a-sky color="#222"></a-sky> -->
     <a-entity camera></a-entity>
+
+    <a-entity run></a-entity>
+
 </a-scene>
 </body>
 </html>
