@@ -61,8 +61,7 @@ THREEx.ArPatternFile.encodeImage = function(image){
 
 		// get imageData
 		var imageData = context.getImageData(0, 0, canvas.width, canvas.height)
-		context.clearRect(0,0,canvas.width,canvas.height);
-		context.beginPath();
+s
 		console.log('imageData: ' + imageData)
 
 		// generate the patternFileString for this orientation
@@ -222,9 +221,9 @@ exports.postAddProduct = (req, res, next) => {
   // res.render('add-product', {pageTitle: 'Add Product'})
   const title = req.body.title;
   const type = req.body.projectType;
-  const patternRatio  = Number(req.body.patternRatioSlider / 100)
-  const imageSize  = Number(req.body.imageSize);
-  const borderColor = req.body.borderColor;
+//   const patternRatio  = Number(req.body.patternRatioSlider / 100)
+//   const imageSize  = Number(req.body.imageSize);
+//   const borderColor = req.body.borderColor;
 
   const image = req.files;
   const modelName = image.itemModel[0].filename;
@@ -269,11 +268,11 @@ const imagePath = path.join(path.dirname(process.mainModule.filename), 'public',
       type: type,
       imagePath: imagePath, 
       modelPath: modelPath,
-      patternRatio: patternRatio,
-      imageSize:imageSize,
-      borderColor: borderColor,
-      patternFilePath: patternFilePath,
-      markerImagePath: markerImagePath
+    //   patternRatio: patternRatio,
+    //   imageSize:imageSize,
+    //   borderColor: borderColor,
+    //   patternFilePath: patternFilePath,
+    //   markerImagePath: markerImagePath
     });
 
     product.save();
@@ -282,14 +281,14 @@ const imagePath = path.join(path.dirname(process.mainModule.filename), 'public',
     console.log("innerImageURL is: " + innerImageURL)
 
 
-    THREEx.ArPatternFile.encodeImageURL(innerImageURL, function onComplete(patternFileString){
-      fs.writeFile(path.join(path.dirname(process.mainModule.filename), 'data', 'pattern', patternFileName), patternFileString, (err) => {
-          console.log(err)
-      })
-    })
+    // THREEx.ArPatternFile.encodeImageURL(innerImageURL, function onComplete(patternFileString){
+    //   fs.writeFile(path.join(path.dirname(process.mainModule.filename), 'data', 'pattern', patternFileName), patternFileString, (err) => {
+    //       console.log(err)
+    //   })
+    // })
 
 	// innerImageURL = '/image/inner-arjs.png'
-	updateFullMarkerImage(patternRatio, imageSize, borderColor)
+	// updateFullMarkerImage(patternRatio, imageSize, borderColor)
 
     res.redirect("/admin/products");
   });
@@ -361,9 +360,9 @@ exports.getEditProduct = (req, res, next) => {
 
 		const title = req.body.title;
 		const type = req.body.projectType;
-		const patternRatio  = Number(req.body.patternRatioSlider / 100)
-		const imageSize  = Number(req.body.imageSize);
-		const borderColor = req.body.borderColor;
+		// const patternRatio  = Number(req.body.patternRatioSlider / 100)
+		// const imageSize  = Number(req.body.imageSize);
+		// const borderColor = req.body.borderColor;
 
 		const image = req.files;
 		const modelName = image.itemModel[0].filename;
@@ -394,7 +393,7 @@ exports.getEditProduct = (req, res, next) => {
 			if (err) throw err
 
 			// buffer is identicon in PNG format.
-			fs.writeFileSync(imagePath, buffer)
+			// fs.writeFileSync(imagePath, buffer)
 			
 			Product.findById(prodId)
 			.then(product => {
@@ -413,13 +412,13 @@ exports.getEditProduct = (req, res, next) => {
 				console.log('UPDATED PRODUCT!');
 
 				console.log("markerImagePath: " + markerImagePath)
-				THREEx.ArPatternFile.encodeImageURL(innerImageURL, function onComplete(patternFileString){
-				  fs.writeFile(patternFilePath, patternFileString, (err) => {
-					  console.log(err)
-				  })
-				})
+				// THREEx.ArPatternFile.encodeImageURL(innerImageURL, function onComplete(patternFileString){
+				//   fs.writeFile(patternFilePath, patternFileString, (err) => {
+				// 	  console.log(err)
+				//   })
+				// })
 			
-			  	updateFullMarkerImage(patternRatio, imageSize, borderColor)
+			  	// updateFullMarkerImage(patternRatio, imageSize, borderColor)
 
 				res.redirect('/admin/products');
 			})

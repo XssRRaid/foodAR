@@ -2006,6 +2006,14 @@ model-viewer {
     width: 40vw;
   }
 
+  .lg\:w-\[30vw\] {
+    width: 30vw;
+  }
+
+  .lg\:w-\[30w\] {
+    width: 30w;
+  }
+
   .lg\:items-center {
     align-items: center;
   }

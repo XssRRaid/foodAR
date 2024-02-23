@@ -70,7 +70,7 @@
 
                         <div class="grid justify-center justify-items-center md:grid-cols-[max-content_0.4fr]">
                             <a href="/model/<%= product._id %>" target="_blank">
-                                <img class="flex-none h-48 overflow-hidden text-center bg-cover lg:h-auto lg:w-[40vw]" src="/image/marker/<%= i %>.png" alt="<%= product.title %>">
+                                <img class="flex-none h-48 overflow-hidden text-center bg-cover lg:h-auto lg:w-[30vw]" src="/image/marker/<%= i %>.png" alt="<%= product.title %>">
                             </a>
 
                             <model-viewer class="w-[100%] h-[100%]"  src="<%= product.modelPath %>" ar 
@@ -112,7 +112,7 @@
     
                             <div class="grid justify-center justify-items-center md:grid-cols-[max-content_0.4fr]">
                                 <a href="/model/<%= product._id %>" target="_blank">
-                                    <img class="flex-none h-48 overflow-hidden text-center bg-cover lg:h-auto lg:w-auto" src="<%= product.markerImagePath %>" alt="<%= product.title %>">
+                                    <img class="flex-none h-48 overflow-hidden text-center bg-cover lg:h-auto lg:w-[30w]" src="/image/marker/<%= i %>.png" alt="<%= product.title %>">
                                 </a>
     
                                 <model-viewer class="w-[100%] h-[100%]"  src="<%= product.modelPath %>" ar 
@@ -133,7 +133,9 @@
                                 </form>
                             </div>
                         </div>
+                        <% i += 1 %>
                     <% } %>
+                    <% i = 0 %>
                 <% } else { %>
                     <h1>No Products Found!</h1>
                 <% } %>

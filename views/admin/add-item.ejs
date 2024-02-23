@@ -51,7 +51,7 @@
             
                 </div>
 
-                <div class="grid gap-y-4">            
+                <!-- <div class="grid gap-y-4">            
                     <div class="grid">
                         <label class="mdl-js-ripple-effect" for="patternRatioSlider">
                             <span class="">Pattern Ratio 0.65</span>
@@ -85,12 +85,12 @@
                         </div>
                     </div>
             
-                </div>
+                </div> -->
 
-                <div class="grid items-center justify-center w-auto">
-                    <!-- <div id='imageContainer' class="md:text-2xl">Marker Image Preview</div> -->
+                <!-- <div class="grid items-center justify-center w-auto">
+                    <div id='imageContainer' class="md:text-2xl">Marker Image Preview</div>
                     <div id='identicon' class="grid items-center justify-center"></div>
-                </div>
+                </div> -->
 
                 <div class="items-center">
 
@@ -121,30 +121,30 @@
 
     document.querySelector('#patternRatioSlider').addEventListener('input', function(){
 	// update the patternRatio number
-	patternRatio = document.querySelector('#patternRatioSlider').value/100
-	var domElement = document.querySelector('[for=patternRatioSlider] span')
-	domElement.innerHTML = `Pattern Ratio ${patternRatio.toFixed(2)}`
+	// patternRatio = document.querySelector('#patternRatioSlider').value/100
+	// var domElement = document.querySelector('[for=patternRatioSlider] span')
+	// domElement.innerHTML = `Pattern Ratio ${patternRatio.toFixed(2)}`
 
 	// update fullMarkerImage
-	updateFullMarkerImage(patternRatio, imageSize, borderColor)
+	// updateFullMarkerImage(patternRatio, imageSize, borderColor)
 })
 
 document.querySelector('#imageSize').addEventListener('input', function(){
 	// update the patternRatio number
-	imageSize = document.querySelector('#imageSize').value
-	var domElement = document.querySelector('[for=imageSize] span')
-	domElement.innerHTML = `Image size ${imageSize}px`
+	// imageSize = document.querySelector('#imageSize').value
+	// var domElement = document.querySelector('[for=imageSize] span')
+	// domElement.innerHTML = `Image size ${imageSize}px`
 
 	// update fullMarkerImage
-	updateFullMarkerImage(patternRatio, imageSize, borderColor)
+	// updateFullMarkerImage(patternRatio, imageSize, borderColor)
 })
 
 document.querySelector('#borderColor').addEventListener('input', function(){
-    borderColor = document.querySelector('#borderColor').value
-	var domElement = document.querySelector('[for=borderColor] span')
+    // borderColor = document.querySelector('#borderColor').value
+	// var domElement = document.querySelector('[for=borderColor] span')
 
 	// update fullMarkerImage
-	updateFullMarkerImage(patternRatio, imageSize, borderColor)
+	// updateFullMarkerImage(patternRatio, imageSize, borderColor)
 })
 
 
@@ -204,23 +204,23 @@ function updateFullMarkerImage(){
 
     document.querySelector('#title').addEventListener('input', function() {
 
-        var title = new Date().getTime().toString() + '-' + document.querySelector('#title').value
+        // var title = new Date().getTime().toString() + '-' + document.querySelector('#title').value
         identicon.generate({ id: title, size: 350 }, function(err, buffer) {
 
-        if (err) throw err;
+            // if (err) throw err;
 
-        var img = new Image();
-        img.src = buffer;
-        // document.getElementById('identicon').appendChild(img);
+            // var img = new Image();
+            // img.src = buffer;
+            // document.getElementById('identicon').appendChild(img);
 
-        // put fullMarkerImage into #imageContainer
-        var container = document.querySelector('#identicon')
+            // put fullMarkerImage into #imageContainer
+            // var container = document.querySelector('#identicon')
 
-        while (container.firstChild) container.removeChild(container.firstChild);
-        // stopped marker preview
-        // container.appendChild(img)
-});
-})
+            // while (container.firstChild) container.removeChild(container.firstChild);
+            // stopped marker preview
+            // container.appendChild(img)
+        });
+    })
 
 
 </script>
