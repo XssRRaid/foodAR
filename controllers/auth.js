@@ -1,15 +1,23 @@
 const User = require('../models/user');
 const bcrypt = require('bcryptjs')
+const crypto = require('crypto')
 
 exports.getLogin = (req, res, next) => {
-  console.log(req.session.isLoggedIn)
   if(req.session.isLoggedIn) {
     return res.redirect('/')
   }
+
+  let message = req.flash('error')
+  if(message.length > 0) {
+    message = message[0]
+  }
+  else {
+    message = null
+  }
   res.render('auth/login', {
     path: '/login',
-    pageTitle: 'Login',
-    isAuthenticated: false
+    pageTitle: 'Login',   
+    errorMessage: message
   });
 };
 
@@ -17,7 +25,6 @@ exports.getSignup = (req, res, next) => {
   res.render('auth/signup', {
     path: '/signup',
     pageTitle: 'Signup',
-    isAuthenticated: false
   });
 };
 
@@ -27,8 +34,8 @@ exports.postLogin = (req, res, next) => {
   User.findOne({username: username})
     .then(user => {
       if(!user){
+        req.flash('error', 'invalid username or password')
         console.log("no such user")
-
         return res.redirect('/login')
       }      
       return bcrypt.compare(password, user.password)
@@ -45,7 +52,7 @@ exports.postLogin = (req, res, next) => {
         }
         else {
           console.log("pass Mismatch!!")
-
+          req.flash('error', 'invalid username or password')
           res.redirect('/login')
         }
       }).catch(err => {
@@ -95,3 +102,44 @@ exports.postLogout = (req, res, next) => {
     res.redirect('/');
   });
 };
+
+exports.getReset = (req, res, next) => {
+  let message = req.flash('error')
+  if(message.length > 0) {
+    message = message[0]
+  }
+  else {
+    message = null
+  }
+  res.render('auth/reset', {
+    path: '/reset',
+    pageTitle: 'Reset Password',
+    errorMessage: message
+  });
+}
+
+exports.postReset = (req, res, next) => {
+  crypto.randomBytes(32, (err, buffer) => {
+    if(err) {
+      console.log(err)
+      return res.redirect('/reset')
+    }
+    token = buffer.toString('hex')
+    User.findOne({username: req.body.username})
+    .then(user => {
+      if(!user) {
+        req.flash('error', 'No username found')
+        return res.redirect('/reset')
+      } 
+      user.resetToken = token;
+      user.resetTokenExpiration = Date.now() + 3600000;
+      return user.save()
+    })
+    .then(result => {
+      
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  })
+}

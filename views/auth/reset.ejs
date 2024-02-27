@@ -1,0 +1,30 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/forms.css">
+    <link rel="stylesheet" href="/css/auth.css">
+</head>
+
+<body>
+   <%- include('../includes/navigation.ejs') %>
+
+    <main>
+        <div class="grid items-center justify-center p-8 mb-4">
+            <form class="grid p-8 text-white rounded-lg w-max login-form gap-y-8 bg-primary" action="/reset" method="POST">
+                <div class="form-control">
+                    <label for="username">Username</label>
+                    <input class="text-gray-500" type="text" name="username" id="username">
+                </div>
+                <div class="form-control">
+                    <label for="oldPassword">Old Password</label>
+                    <input class="text-gray-500"  type="password" name="oldPassword" id="oldPassword">
+                </div>
+                <div class="form-control">
+                    <label for="newPassword">New Password</label>
+                    <input class="text-gray-500"  type="password" name="newPassword" id="newPassword">
+                </div>
+                <input type="hidden" value="<%= csrfToken %>" name="_cs rf">
+                <button class="px-5 py-1 text-gray-500 transition-all border-2 rounded-md justify-self-center w-max bg-zinc-200 hover:bg-zinc-50 button hover:text-gray-800" type="submit">Reset Password</button>
+            </form>
+        </div>
+
+    </main>
+</body>

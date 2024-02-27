@@ -7,6 +7,11 @@
    <%- include('../includes/navigation.ejs') %>
 
     <main>
+        <% if(errorMessage) { %>
+            <div class="mx-auto grid justify-center text-primary border-1 border-primary bg-red-300 p-3 w-[50%] min-w-[260px]">
+                <%= errorMessage %>
+            </div>
+        <% } %>
         <div class="grid items-center justify-center p-8 mb-4">
             <form class="grid p-8 text-white rounded-lg w-max login-form gap-y-8 bg-primary" action="/login" method="POST">
                 <div class="form-control">
@@ -20,6 +25,7 @@
                 <input type="hidden" value="<%= csrfToken %>" name="_csrf">
                 <button class="px-5 py-1 text-gray-500 transition-all border-2 rounded-md justify-self-center w-max bg-zinc-200 hover:bg-zinc-50 button hover:text-gray-800" type="submit">Login</button>
             </form>
+            <!-- <a href="/reset" class="underline text-primary">Reset Password</a> -->
         </div>
         
     </main>
