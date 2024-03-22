@@ -77,16 +77,14 @@
         cursor="fuse: false; rayOrigin: mouse;"
     >
     <!-- <a-sky color="teal" opacity="0.7"></a-sky> -->
-    <a-plane color="teal" height="500" width="500" opacity="0.6">
         <a-entity
-            id="bowser-model"
-            animation-mixer="loop: repeat"
-            gltf-model="#<%= product._id %>"
-            class="clickable"
-            gesture-handler
-            position='0 0.5 0'
-        ></a-entity>
-    </a-plane>
+        id="bowser-model"
+        animation-mixer="loop: repeat"
+        gltf-model="#<%= product._id %>"
+        class="clickable"
+        gesture-handler
+        position='0 0.5 0'
+    ></a-entity>
     </a-marker>
 
     <% i += 1 %>    
