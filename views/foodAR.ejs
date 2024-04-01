@@ -72,18 +72,17 @@
         id="<%= product.title %>"
         type="barcode"
         value="<%= i %>"
-        raycaster="objects: .clickable"
         emitevents="true"
         cursor="fuse: false; rayOrigin: mouse;"
     >
     <!-- <a-sky color="teal" opacity="0.7"></a-sky> -->
+    <!-- fix model on marker -->
         <a-entity
         id="bowser-model"
         animation-mixer="loop: repeat"
         gltf-model="#<%= product._id %>"
-        class="clickable"
         gesture-handler
-        position='0 0.5 0'
+        position='0 0 0'
     ></a-entity>
     </a-marker>
 
