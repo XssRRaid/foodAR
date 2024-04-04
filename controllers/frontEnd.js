@@ -6,39 +6,25 @@ let foodProducts = [];
 let productData = []
 
 exports.getIndex = (req, res, next) => {
+  // Fetching products asynchronously
+  const fetchFurnitureProducts = Product.find({ type: "furniture" }).exec();
+  const fetchFoodProducts = Product.find({ type: "food" }).exec();
 
-    Product.find({type: "furniture"})
-    .then(products => {
-      console.log(products);
-      furnitures = products;
-    })
-    .catch(err => {
-      console.log(err);
-    });
-
-    Product.find({type: "food"})
-    .then(products => {
-      console.log(products);
-      foodProducts = products;
-    })
-    .catch(err => {
-      console.log(err);
-    });
-
-    Product.find()
-    .then(products => {
-      console.log(products);
-
+  // Waiting for both fetch operations to complete
+  Promise.all([fetchFurnitureProducts, fetchFoodProducts])
+    .then(([furnitureProducts, foodProducts]) => {
+      // Rendering index page only after both sets of data are fetched
       res.render('index', {
-        products: products,
-        furnitures: furnitures,
+        furnitures: furnitureProducts,
         foodProducts: foodProducts,
         pageTitle: 'Homepage',
         path: '/',
       });
     })
     .catch(err => {
-      console.log(err);
+      console.error("Error fetching products:", err);
+      // Handle error
+      res.status(500).send("Internal Server Error");
     });
 };
 
