@@ -75,8 +75,9 @@
         emitevents="true"
         cursor="fuse: false; rayOrigin: mouse;"
         smooth="true"
-        smooth-count="15"
-        smooth-threshold="5"
+        smooth-count="0"
+        smooth-threshold="0"
+        smooth-tolerance="0"
     >
     <!-- <a-sky color="teal" opacity="0.7"></a-sky> -->
         <a-entity
@@ -95,7 +96,8 @@
     <% } %>    
     <% i = 0 %>
     <!-- <a-sky color="#222"></a-sky> -->
-    <a-entity camera></a-entity>
+    <a-entity camera look-controls></a-entity>
+
 </a-scene>
 </body>
 </html>
