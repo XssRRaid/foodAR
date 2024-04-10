@@ -87,16 +87,6 @@ exports.getAR = (req, res, next) => {
           path: '/ar'
         })
     }
-
-    // Product.fetchAll((products => {
-    //     // console.log(products)
-    //     // res.render('foodAR', {
-    //     //     products: products,
-    //     //     pageTitle: 'Food Menu AR',
-    //     //     path: '/food-ar',
-    //     //   });
-        
-    // }));   
 };
 
 exports.getARtest = (req, res, next) => {
@@ -112,14 +102,46 @@ exports.getARtest = (req, res, next) => {
   .catch(err => {
     console.log(err);
   });
-
-  // Product.fetchAll((products => {
-  //     // console.log(products)
-  //     // res.render('foodAR', {
-  //     //     products: products,
-  //     //     pageTitle: 'Food Menu AR',
-  //     //     path: '/food-ar',
-  //     //   });
-      
-  // }));   
+};
+exports.getARtest2 = (req, res, next) => {
+    
+  Product.find({type: "furniture"})
+  .then(products => {
+      res.render('foodAR-2', {
+          products: products,
+          pageTitle: 'Furniture Menu AR',
+          path: '/ar/test-2'
+        });
+  })
+  .catch(err => {
+    console.log(err);
+  });
+};
+exports.getARtest3 = (req, res, next) => {
+    
+  Product.find({type: "furniture"})
+  .then(products => {
+      res.render('foodAR-3', {
+          products: products,
+          pageTitle: 'Furniture Menu AR',
+          path: '/ar/test-3'
+        });
+  })
+  .catch(err => {
+    console.log(err);
+  });
+};
+exports.getARtest4 = (req, res, next) => {
+    
+  Product.find({type: "furniture"})
+  .then(products => {
+      res.render('foodAR-4', {
+          products: products,
+          pageTitle: 'Furniture Menu AR',
+          path: '/ar/test-4'
+        });
+  })
+  .catch(err => {
+    console.log(err);
+  });
 };

@@ -103,8 +103,12 @@ const adminRoutes = require('./routes/admin');
 app.use('/admin', adminRoutes);
 app.use(authRoutes);
 
+
 // app.use('/food-ar', frontEndController.getAR)
 app.use('/ar/test', frontEndController.getARtest)
+app.use('/ar/test-2', frontEndController.getARtest2)
+app.use('/ar/test-3', frontEndController.getARtest3)
+app.use('/ar/test-4', frontEndController.getARtest4)
 
 app.use('/ar/:type', frontEndController.getAR)
 app.use('/ar/', frontEndController.getAR)
