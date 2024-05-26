@@ -126,11 +126,11 @@ src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
                                 </a>
                                 
                                 <model-viewer class="w-[100%] h-[100%]"  src="<%= product.modelPath %>" ar 
-                                    alt="A Chair" 
-                                    poster="<%= product.imagePath %>"
-                                    shadow-intensity="1" 
                                     camera-controls 
-                                    touch-action="pan-y">
+                                    environment-image="neutral"  
+                                    shadow-intensity="1" 
+                                    alt="A Chair" 
+                                    poster="<%= product.imagePath %>">
                                 </model-viewer>
                             </div>
                         </div>
