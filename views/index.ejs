@@ -41,9 +41,15 @@
         }
         </style>
 
-<script type="module"
+<!-- <script type="module"
 src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
-</script>
+</script> -->
+
+        <!-- Loads <model-viewer> for modern browsers: -->
+            <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.js"></script>
+
+            <!-- Loads <model-viewer> for old browsers like IE11: -->
+            <script nomodule src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js"></script>
 
 </head>
 <body>
