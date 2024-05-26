@@ -52,7 +52,7 @@
         <section class="menu">
 
             <div class="grid grid-cols-2 tab rounded-t-md">
-                <button class="tablinks" onclick="openCity(event, 'Furniture')" id="defaultOpen">Furniture Menu</button>
+                <button class="tablinks" onclick="openCity(event, 'Furniture')" id="defaultOpen">Objects</button>
                 <button class="tablinks" onclick="openCity(event, 'Food')">Food Menu</button>
             </div>
             
@@ -78,7 +78,9 @@
                                 poster="<%= product.imagePath %>"
                                 shadow-intensity="1" 
                                 camera-controls 
-                                touch-action="pan-y">
+                                touch-action="pan-y"
+                                scale="0.3 0.3 0.3" 
+                                ar>
                             </model-viewer>
                         </div>
 

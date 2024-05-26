@@ -71,7 +71,7 @@ src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
         <section class="menu">
 
             <div class="grid grid-cols-2 tab rounded-t-md">
-                <button class="tablinks" onclick="openCity(event, 'Furniture')" id="defaultOpen">Furniture Menu</button>
+                <button class="tablinks" onclick="openCity(event, 'Furniture')" id="defaultOpen">Objects</button>
                 <button class="tablinks" onclick="openCity(event, 'Food')">Food Menu</button>
             </div>
             
@@ -97,7 +97,9 @@ src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
                                     poster="<%= product.imagePath %>"
                                     shadow-intensity="1" 
                                     camera-controls 
-                                    touch-action="pan-y">
+                                    touch-action="pan-y"
+                                    scale="0.5 0.5 0.5" 
+                                    ar>
                                 </model-viewer>
                             </div>
                         </div>
