@@ -81,6 +81,7 @@ http {
         # Include the Elastic Beanstalk generated locations
         include conf.d/elasticbeanstalk/*.conf;
     }
+    
 }
 
 sudo nginx -s reload 
